@@ -1,0 +1,37 @@
+version: '3.8'
+services:
+  php-apache-environment:
+    container_name: php-apache-stone-store
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    volumes:
+      - ./:/var/www/html/
+    ports:
+    # host:docker
+      - 7700:80
+  db:
+    container_name: db-stone-store
+    # image: mysql:5.7
+    image: mariadb:10.5
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: stone_store
+      MYSQL_USER: fauzan123
+      MYSQL_PASSWORD: rahasia
+    ports:
+      # host:docker
+      - 3310:3306
+  phpmyadmin:
+    container_name: phpmyadmin-stone-store
+    image: phpmyadmin/phpmyadmin
+    ports:
+        - '8080:80'
+    restart: always
+    environment:
+        PMA_HOST: db
+    depends_on:
+        - db
