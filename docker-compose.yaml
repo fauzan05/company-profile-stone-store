@@ -8,10 +8,11 @@ services:
     depends_on:
       - db
     volumes:
-      - ./:/var/www/html/
+      - ./:/var/www/html/stone-store
+      # - ./stone-store.conf:/etc/apache2/sites-available/stone-store.conf
     ports:
     # host:docker
-      - 7700:80
+      - 80:80    
   db:
     container_name: db-stone-store
     # image: mysql:5.7
