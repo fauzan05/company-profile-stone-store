@@ -77,16 +77,7 @@
 										<div class="table-responsive">
 											<table class="table table-striped">
 												<tr>
-													<th class="text-center pt-2">
-														<div
-															class="custom-checkbox custom-checkbox-table custom-control">
-															<input type="checkbox" data-checkboxes="mygroup"
-																data-checkbox-role="dad" class="custom-control-input"
-																id="checkbox-all" value="all">
-															<label for="checkbox-all"
-																class="custom-control-label">&nbsp;</label>
-														</div>
-													</th>
+													<th>No</th>
 													<th>Nama</th>
 													<th>Deskripsi</th>
 													<th>Gambar</th>
@@ -95,14 +86,8 @@
 												</tr>
 												<?php foreach($categories as $key => $category): ?>
 												<tr>
-													<td class="p-0 d-flex align-items-center justify-content-center">
-														<div class="custom-checkbox custom-control">
-															<input type="checkbox" data-checkboxes="mygroup"
-																class="custom-control-input"
-																value="<?= $category->id ?>" id="checkbox-<?= $key ?>">
-															<label for="checkbox-<?= $key ?>"
-																class="custom-control-label">&nbsp;</label>
-														</div>
+													<td>
+													<p><?= $key + 1 ?></p>
 													</td>
 													<td>
 														<p><?= $category->name ?></p>
@@ -129,8 +114,7 @@
 												</tr>
 												<?php endforeach; ?>
 											</table>
-											<button class="btn btn-danger me-3" data-toggle="modal"
-												data-target="#deleteConfirmSelected">Hapus</button>
+											<span>**Menghapus kategori berarti akan menghapus semua produk yang berkaitan dengan kategori tersebut</span>
 										</div>
 										<div class="float-right">
 											<nav>
@@ -290,7 +274,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- delete product modal single -->
+	<!-- delete category modal single -->
 	<div class="modal fade" tabindex="-1" role="dialog" id="deleteConfirmSingle">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
@@ -312,7 +296,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- delete product modal selected -->
+	<!-- delete category modal selected -->
 	<div class="modal fade" tabindex="-1" role="dialog" id="deleteConfirmSelected">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">

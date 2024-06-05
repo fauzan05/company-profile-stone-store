@@ -32,7 +32,7 @@ create table products(
     description text not null,
     color varchar(255) not null,
     primary key (id),
-    foreign key(category_id) references categories(id),
+    foreign key(category_id) references categories(id) ON DELETE CASCADE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) engine=innoDB;
@@ -69,7 +69,7 @@ create table image_products(
 	id int not null auto_increment,
 	filename varchar(255) not null,
     product_id int not null,
-    foreign key(product_id) references products(id),
+    foreign key(product_id) references products(id) on delete cascade,
     primary key(id),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -100,7 +100,6 @@ select * from apps;
 select * from image_applications;
 select * from applications;
 select * from image_products;
-select * from product_sizes;
 select * from categories;
 
 drop table users;
@@ -110,3 +109,17 @@ drop database stone_store;
 
 alter table products
 add sizes text null after category_id;
+
+desc categories;
+desc products;
+show create table products;
+show create table image_products;
+
+alter table image_products
+drop foreign key image_products_ibfk_1;
+
+ALTER TABLE image_products
+ADD CONSTRAINT image_products_ibfk_1
+FOREIGN KEY (product_id) REFERENCES products(id)
+ON DELETE CASCADE;
+

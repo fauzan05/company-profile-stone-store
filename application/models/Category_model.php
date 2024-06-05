@@ -102,6 +102,8 @@ class Category_model extends CI_Model
 
     public function delete_category_by_id($id)
     {
+        $this->db->where('category_id', $id);
+        $this->db->delete('products');
         return $this->db->delete($this->_table, ['id' => $id]);
     }
 

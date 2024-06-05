@@ -78,6 +78,31 @@ class Admin extends CI_Controller {
         $data['error'] = '';
         $this->load->view('admin/product', $data);
     }
+    
+    public function edit_product($id)
+    {
+        if ($this->input->method() === 'get') {
+            $this->Product_model->delete_product_by_id($id);
+            $this->session->set_flashdata('message', 'Berhasil menghapus data produk');
+            $this->session->set_flashdata('alert_color', 'success');
+            return redirect('products');
+        }
+        $data = [
+            "name" => $this->input->post("product_name"),
+            "color" => $this->input->post("product_color"),
+            "category_id" => $this->input->post("category_id"),
+            "description" => $this->input->post("product_desc"),
+            "sizes" => $this->input->post("sizes"),
+            "updated_at" => $this->now
+        ];
+
+        $result = $this->Product_model->editProduct($data, $id);
+        if ($result) {
+            $this->session->set_flashdata('message', 'Berhasil mengubah data produk');
+            $this->session->set_flashdata('alert_color', 'success');
+            redirect('products');
+        }
+    }
 
     public function create_account()
     {

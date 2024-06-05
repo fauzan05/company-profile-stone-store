@@ -60,5 +60,6 @@ $route['dashboard'] = 'admin';
 $route['products'] = 'admin/product';
 $route['categories'] = 'admin/category';
 $route['categories/(:num)'] = 'admin/edit_category/$1';
+$route['products/(:num)'] = 'admin/edit_product/$1';
 $route['upload_product_images'] = 'product/upload_product_images';
 // $route['create_admin'] = 'admin/create_account';

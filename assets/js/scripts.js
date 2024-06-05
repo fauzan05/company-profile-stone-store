@@ -637,6 +637,54 @@ $("#deleteConfirmSingle").on("show.bs.modal", function (event) {
 });
 
 
+// passing data edit produk modal
+$("#editProductModal").on("show.bs.modal", function (event) {
+  let button = $(event.relatedTarget);
+  let id = button.data("id")
+  let name = button.data("name")
+  let category_id = button.data("category-id")
+  let desc = button.data("desc")
+  let img = button.data("img")
+  let color = button.data("color")
+  let sizes = button.data("sizes")
+  // update modal content
+  let modal = $(this);
+  modal.find("#product_name_edit").val(name)
+  modal.find("#product_color_edit").val(color)
+  modal.find("#product_desc_edit").val(desc)
+  // modal.find(`#category-${category_id}`).val(category_id)
+  console.log(modal.find(`#product_category_edit option[value=${category_id}]`).attr('selected', 'selected')[0]);
+  let srcImg = `http://localhost/stone-store/assets/img/${img}`;
+  modal.find("#img").attr("src", srcImg)
+  modal.find("form")[0].action = "/stone-store/products/" + id;
+  MyEditor.setData(sizes)
+  // console.log(modal.find("#img")[0]);
+})
+
+let MyEditor;
+ClassicEditor
+  .create(document.querySelector('#ckeditor-edit'), {
+
+  }).then(editor => {
+    MyEditor = editor;
+    MyEditor.model.document.on('change:data', () => {
+      let body_content = editor.getData()
+      $("#ckeditor-input-edit").val(body_content)
+    });
+  }).catch(error => {
+    console.error(error);
+  });
+
+// passing data delete single product modal
+$("#deleteProductConfirmSingle").on("show.bs.modal", function (event) {
+  let button = $(event.relatedTarget);
+  let id = button.data("id")
+  // update modal content
+  let modal = $(this);
+  let srcDelete = `http://localhost/stone-store/products/${id}`;
+  modal.find("#deleteProductButtonSingle").attr("href", srcDelete)
+  // console.log(modal.find("#img")[0]);
+});
 
 let checkedValues = [];
 let allState = false;
@@ -645,7 +693,7 @@ let singleState = false;
 Boolean(singleState);
 let selectedCheckboxs = [];
 let selectedCheckbox = 0;
-let checkboxes = $("input[data-checkboxes='mygroup']").click(function() {
+let checkboxes = $("input[data-checkboxes='mygroup']").click(function () {
   // console.log(checkbox)
   // let checkboxValue = $(this).val();
   if ($(this).val() == "all") {
@@ -665,19 +713,18 @@ let checkboxes = $("input[data-checkboxes='mygroup']").click(function() {
     }
   }
   // passing data delete selected category modal
-$("#deleteConfirmSelected").on("show.bs.modal", function (event) {
-  let button = $(event.relatedTarget);
-  let id = button.data("id")
-  // update modal content
-  let modal = $(this);
-  let srcImg = `http://localhost/stone-store/categories/${id}`;
-  modal.find("#deleteButtonSingle").attr("href", srcImg)
-  // console.log(modal.find("#img")[0]);
-});
+  $("#deleteConfirmSelected").on("show.bs.modal", function (event) {
+    let button = $(event.relatedTarget);
+    let id = button.data("id")
+    // update modal content
+    let modal = $(this);
+    let srcImg = `http://localhost/stone-store/categories/${id}`;
+    modal.find("#deleteButtonSingle").attr("href", srcImg)
+    // console.log(modal.find("#img")[0]);
+  });
 })
 
 // Image Upload & Preview
-
 let imageUploadInputEdit = $("#image-upload-edit")[0];
 let imageContainerEdit = $("#image-preview-edit")[0];
 
@@ -754,6 +801,112 @@ $(function () {
     }
   });
   $('#category_description').change(function () {
+    this.value = $.trim(this.value);
+    if (this.value === "") {
+      categoryDescAlert.removeClass("d-none");
+      categoryDescAlert.addClass("d-block");
+      categoryDescAlert.html("Kolom deskripsi tidak boleh kosong");
+      addButton.prop('disabled', true);
+    } else {
+      categoryDescAlert.removeClass("d-block");
+      categoryDescAlert.addClass("d-none");
+      addButton.prop('disabled', false);
+    }
+  });
+  $('#category_image').change(function () {
+    this.value = $.trim(this.value);
+    if (this.value === "") {
+      categoryImgAlert.removeClass("d-none");
+      categoryImgAlert.addClass("d-block");
+      categoryImgAlert.html("Gambar harus diupload dan tidak boleh kosong");
+      addButton.prop('disabled', true);
+    } else {
+      categoryImgAlert.removeClass("d-block");
+      categoryImgAlert.addClass("d-none");
+      addButton.prop('disabled', false);
+    }
+  });
+});
+
+// PRODUCT
+$(function () {
+  let editButton = $("#edit-button");
+  let addButton = $("#add-button");
+  let productNameAlert = $("#product-name-alert");
+  let productColorAlert = $("#product-color-alert");
+  let productCategoryAlert = $("#product-category-alert");
+  let productDescAlert = $("#product-desc-alert");
+  let productImgAlert = $("#product-img-alert");
+
+  // EDIT
+  $('#product_name_edit').change(function () {
+    this.value = $.trim(this.value);
+    if (this.value === "") {
+      productNameAlert.removeClass("d-none");
+      productNameAlert.addClass("d-block");
+      productNameAlert.html("Kolom nama tidak boleh kosong");
+      editButton.prop('disabled', true);
+    } else {
+      categoryNameAlert.removeClass("d-block");
+      categoryNameAlert.addClass("d-none");
+      editButton.prop('disabled', false);
+    }
+  });
+  $('#product_desc_edit').change(function () {
+    this.value = $.trim(this.value);
+    if (this.value === "") {
+      categoryDescAlert.removeClass("d-none");
+      categoryDescAlert.addClass("d-block");
+      categoryDescAlert.html("Kolom deskripsi tidak boleh kosong");
+      editButton.prop('disabled', true);
+    } else {
+      categoryDescAlert.removeClass("d-block");
+      categoryDescAlert.addClass("d-none");
+      editButton.prop('disabled', false);
+    }
+  });
+
+  // ADD
+  $('#product_name').change(function () {
+    this.value = $.trim(this.value);
+    if (this.value === "") {
+      productNameAlert.removeClass("d-none");
+      productNameAlert.addClass("d-block");
+      productNameAlert.html("Kolom nama tidak boleh kosong");
+      addButton.prop('disabled', true);
+    } else {
+      productNameAlert.removeClass("d-block");
+      productNameAlert.addClass("d-none");
+      addButton.prop('disabled', false);
+    }
+  });
+  $('#product_color').change(function () {
+    this.value = $.trim(this.value);
+    if (this.value === "") {
+      productColorAlert.removeClass("d-none");
+      productColorAlert.addClass("d-block");
+      productColorAlert.html("Kolom warna tidak boleh kosong");
+      addButton.prop('disabled', true);
+    } else {
+      productColorAlert.removeClass("d-block");
+      productColorAlert.addClass("d-none");
+      addButton.prop('disabled', false);
+    }
+  });
+  // $('#product_category').change(function () {
+  //   this.value = $.trim(this.value);
+  //   if (this.value === "") {
+  //     categoryNameAlert.removeClass("d-none");
+  //     categoryNameAlert.addClass("d-block");
+  //     categoryNameAlert.html("Pilihan kategori tidak boleh kosong");
+  //     addButton.prop('disabled', true);
+  //   } else {
+  //     categoryNameAlert.removeClass("d-block");
+  //     categoryNameAlert.addClass("d-none");
+  //     addButton.prop('disabled', false);
+  //   }
+  // });
+  $('#product_desc').change(function () {
     this.value = $.trim(this.value);
     if (this.value === "") {
       categoryDescAlert.removeClass("d-none");

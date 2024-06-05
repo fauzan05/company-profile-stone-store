@@ -13,7 +13,7 @@ class Product_model extends CI_Model
     public function getAllProducts($limit, $offset)
     {
         $this->db->select($this->_table . '.*, image_products.filename as product_image, categories.name as category_name, products.name as product_name, categories.description as category_desc,
-        products.description as product_desc, products.created_at as product_created_at, products.id as product_id');
+        products.description as product_desc, products.created_at as product_created_at, products.updated_at as product_updated_at, products.id as product_id, categories.id as category_id');
         $this->db->from($this->_table);
         $this->db->join('image_products', 'image_products.product_id = ' . $this->_table . '.id');
         $this->db->join('categories', 'categories.id = ' . $this->_table . '.category_id');
@@ -26,7 +26,6 @@ class Product_model extends CI_Model
     {
         return $this->db->count_all($this->_table);
     }
-    
 
     // public function addProductImageMany($data)
     // {
@@ -72,7 +71,7 @@ class Product_model extends CI_Model
             rename($image_data['full_path'], $image_data['file_path'] . $hashed_filename . $file_ext);
             $image_product['filename'] = $hashed_filename . $file_ext;
             $image_product['product_id'] = $product_id;
-            
+
             $this->db->insert('image_products', $image_product);
             return true;
         }
@@ -90,11 +89,39 @@ class Product_model extends CI_Model
         return $config;
     }
 
-    public function deleteProduct($id)
+    public function delete_product_by_id($id)
     {
+        return $this->db->delete($this->_table, ['id' => $id]);
     }
 
-    public function editProduct($data)
+    public function editProduct($data, $id)
     {
+        if ($_FILES['image-upload-edit']['error'] == 0) {
+            $this->load->library('upload', $this->set_upload_options());
+            if (!$this->upload->do_upload('image-upload-edit')) {
+                return $this->upload->display_errors();
+            } else {
+                $this->db->where('id', $id);
+                $this->db->update($this->_table, $data);
+
+                $image_data = $this->upload->data();
+                // die(var_dump($data));
+                $original_filename = $image_data['file_name'];
+                $file_ext = $image_data['file_ext'];
+                $hashed_filename = hash('sha256', $original_filename . time() . $file_ext);
+                // die(var_dump($hashed_filename));
+                // rename the file
+                rename($image_data['full_path'], $image_data['file_path'] . $hashed_filename . $file_ext);
+                $image_product['filename'] = $hashed_filename . $file_ext;
+
+                $this->db->where('product_id', $id);
+                $this->db->update('image_products', $image_product);
+                return true;
+            }
+        } else {
+            $this->db->where('id', $id);
+            $this->db->update($this->_table, $data);
+            return true;
+        }
     }
 }
