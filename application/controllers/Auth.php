@@ -7,8 +7,8 @@ class Auth extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('User_Model');
-        $this->load->library('form_validation');
+        $this->load->model('User_model');
+        $this->load->library('form_validation');        
     }
 
     public function login()
@@ -21,9 +21,6 @@ class Auth extends CI_Controller {
             case 'get':
                 $this->handle_login_get();
                 break;
-            case 'delete':
-                $this->handle_login_delete();
-                break;
             default:
                 show_404();
                 break;
@@ -31,15 +28,30 @@ class Auth extends CI_Controller {
 	}
 
     private function handle_login_post() {
-        $data['meta'] = [
-            'title' => 'Stone Store - Login'
-        ];
-        echo json_encode($data);
+        $rules = $this->User_model->loginRules();
+        $this->form_validation->set_rules($rules);
+
+        if ($this->form_validation->run() == false) {
+            return $this->load->view('auth/login');
+        }
+
+        $email = $this->input->post('email');
+        $password = $this->input->post('password');
+        $remember_me = $this->input->post('remember_me');
+        if ($this->User_model->login($email, $password, $remember_me)) {
+            redirect('/dashboard', 'location');
+        } else {
+			$this->session->set_flashdata('message_login_error', 'Email dan password salah!');
+            $this->load->view('auth/login');
+        }
     }
+
     private function handle_login_get() {
         $data['meta'] = [
             'title' => 'Stone Store - Login'
         ];
+        $data['error'] = '';
+
 		$this->load->view('auth/login', $data);
     }
     private function handle_login_delete() {
@@ -64,6 +76,8 @@ class Auth extends CI_Controller {
 
     public function handle_register_post()
     {
+        $rules = $this->User_model->registerRules();
+        $this->form_validation->set_rules($rules);
         $this->form_validation->set_rules($this->User_model->registerRules());
 
         if ($this->form_validation->run() == FALSE) {
@@ -77,6 +91,7 @@ class Auth extends CI_Controller {
                 'username' => $this->input->post('username'),
                 'password' => password_hash($this->input->post('password'), PASSWORD_BCRYPT),
                 'email' => $this->input->post('email'),
+                'role' => 'admin',
                 'phone_number' => $this->input->post('phone_number')
             ];
 
@@ -93,8 +108,16 @@ class Auth extends CI_Controller {
     public function handle_register_get()
     {
         $data['meta'] = [
-            'title' => 'Stone Store - Register'
+            'title' => 'Stone Store - Register',
         ];
+        $data['error'] = '';
         $this->load->view('auth/register', $data);
+    }
+
+    public function logout()
+    {
+        $this->load->model('User_model');
+		$this->User_model->logout();
+		redirect(site_url());
     }
 }
