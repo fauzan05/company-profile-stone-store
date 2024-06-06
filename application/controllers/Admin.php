@@ -4,25 +4,36 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Admin extends CI_Controller {
     private $now;
+    private $current_user;
     public function __construct()
     {
         parent::__construct();
         $this->load->model('Product_model');
         $this->load->model('User_model');
-        $this->load->model('Category_model');
-        $this->load->library('form_validation');
         if(!$this->User_model->current_user()){
 			redirect('login');
-		} 
+		}
+        $this->load->model('Category_model');
+        $this->load->model('Application_model');
+        $this->load->model('Setting_model');
+        $this->load->library('form_validation');
         date_default_timezone_set('Asia/Jakarta');
         $this->now = date('Y-m-d H:i:s');
+        $this->current_user = $this->User_model->current_user()->username;
     }
 
     public function index()
     {
+        $total_product = $this->Product_model->get_total();
+        $total_category = $this->Category_model->get_total();
+        $total_app = $this->Application_model->get_total();
+        $data['total_product'] = $total_product;
+        $data['total_category'] = $total_category;
+        $data['total_app'] = $total_app;
         $data['meta'] = [
             'title' => 'Stone Store - Admin Dashboard',
         ];
+        $data['current_user'] = $this->current_user;
         $this->load->view('admin/dashboard', $data);
     }
 
@@ -197,5 +208,130 @@ class Admin extends CI_Controller {
             $this->session->set_flashdata('alert_color', 'success');
             redirect('categories');
         }
+    }
+
+    public function application()
+    {
+        $method = $this->input->method();
+        switch ($method) {
+            case 'post':
+                $this->handle_application_post();
+                break;
+            case 'get':
+                $this->handle_application_get();
+                break;
+            default:
+                show_404();
+                break;
+        }
+    }
+
+    public function handle_application_post()
+    {
+        $data = [
+            'title' => $this->input->post('app_title'),
+            'description' => $this->input->post('app_desc'),
+        ];
+
+        $result = $this->Application_model->addApplication($data);
+        if ($result) {
+            $this->session->set_flashdata('message', 'Berhasil menambahkan data aplikasi');
+            $this->session->set_flashdata('alert_color', 'success');
+            redirect('applications');
+        } else {
+            $this->session->set_flashdata('message', 'Gagal menambahkan data aplikasi');
+            $this->session->set_flashdata('alert_color', 'danger');
+            redirect('applications');
+        }
+    }
+    public function handle_application_get()
+    {
+        $query_string = $this->input->get("page", true) ? $this->input->get("page", true) : 1;
+        $limit = 10;
+        $data['applications'] = $this->Application_model->getAllApplications($limit, $query_string-1);
+        // echo '<pre>' . var_export($data['applications'], true) . '</pre>';
+        // return;
+        $data['total'] = $this->Application_model->get_total();
+        // die(var_dump($data['total']));
+        $data['limit'] = $limit;
+        $data['current_page'] = $query_string;
+        $data['meta'] = [
+            'title' => 'Stone Store - Admin Application',
+        ];
+        $data['error'] = '';
+        $this->load->view('admin/application', $data);
+    }
+
+    public function edit_application($id)
+    {
+        // cek methodnya
+        $method = $this->input->method();
+        if ($method === "get") {
+            $this->Application_model->delete_app_by_id($id);
+            $this->session->set_flashdata('message', 'Berhasil menghapus data aplikasi');
+            $this->session->set_flashdata('alert_color', 'success');
+            return redirect('applications');
+        }
+        $data = [
+            'title' => trim($this->input->post('app_title')),
+            'description' => trim($this->input->post('app_desc')),
+            'updated_at' => $this->now
+        ];
+        $result = $this->Application_model->editApplication($data, $id);
+        if ($result) {
+            $this->session->set_flashdata('message', 'Berhasil mengubah data aplikasi');
+            $this->session->set_flashdata('alert_color', 'success');
+            redirect('applications');
+        } else {
+            $this->session->set_flashdata('message', 'Gagal mengubah data aplikasi');
+            $this->session->set_flashdata('alert_color', 'danger');
+            redirect('applications');
+        }
+    }
+
+    public function setting()
+    {
+        $method = $this->input->method();
+        switch ($method) {
+            case 'post':
+                $this->handle_setting_post();
+                break;
+            case 'get':
+                $this->handle_setting_get();
+                break;
+            default:
+                show_404();
+                break;
+        }
+    }
+
+    public function handle_setting_post()
+    {
+        $data = [
+            'company_name' => $this->input->post('company_name'),
+            'address' => $this->input->post('address'),
+            'email' => $this->input->post('email'),
+            'phone_number' => $this->input->post('phone_number'),
+            'is_show_logo' => (boolean)$this->input->post('show_logo') ? true : false
+        ];
+        $result = $this->Setting_model->editSettings($data);
+        if ($result) {
+            $this->session->set_flashdata('message', 'Berhasil mengubah data pengaturan');
+            $this->session->set_flashdata('alert_color', 'success');
+            redirect('settings');
+        } else {
+            $this->session->set_flashdata('message', 'Gagal mengubah data pengaturan');
+            $this->session->set_flashdata('alert_color', 'danger');
+            redirect('settings');
+        }
+    }
+
+    public function handle_setting_get()
+    {
+        $data['meta'] = [
+            'title' => 'Stone Store - Admin Setting',
+        ];
+        $data['settings'] = $this->Setting_model->getAllSettings()[0];
+        $this->load->view('admin/setting', $data);
     }
 }

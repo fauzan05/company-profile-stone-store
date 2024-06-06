@@ -662,18 +662,25 @@ $("#editProductModal").on("show.bs.modal", function (event) {
 })
 
 let MyEditor;
-ClassicEditor
-  .create(document.querySelector('#ckeditor-edit'), {
-
-  }).then(editor => {
-    MyEditor = editor;
-    MyEditor.model.document.on('change:data', () => {
-      let body_content = editor.getData()
-      $("#ckeditor-input-edit").val(body_content)
+if (typeof ClassicEditor !== 'undefined') {
+  ClassicEditor
+    .create(document.querySelector('#ckeditor-edit'), {
+      // Configuration options
+    })
+    .then(editor => {
+      MyEditor = editor;
+      MyEditor.model.document.on('change:data', () => {
+        let body_content = editor.getData();
+        $("#ckeditor-input-edit").val(body_content);
+      });
+    })
+    .catch(error => {
+      // console.error(error);
     });
-  }).catch(error => {
-    console.error(error);
-  });
+} else {
+  // console.error('ClassicEditor is not defined');
+}
+
 
 // passing data delete single product modal
 $("#deleteProductConfirmSingle").on("show.bs.modal", function (event) {
@@ -685,6 +692,45 @@ $("#deleteProductConfirmSingle").on("show.bs.modal", function (event) {
   modal.find("#deleteProductButtonSingle").attr("href", srcDelete)
   // console.log(modal.find("#img")[0]);
 });
+
+
+// passing data edit app modal
+$("#editAppModal").on("show.bs.modal", function (event) {
+  let button = $(event.relatedTarget);
+  let id = button.data("id")
+  let title = button.data("title")
+  let desc = button.data("desc")
+  let img = button.data("img")
+  // console.log("img")
+
+  // update modal content
+  let modal = $(this);
+  // modal.find("#imgg").html(img[0].filename)
+  modal.find("#app_title_edit").val(title)
+  modal.find("#app_desc_edit").val(desc)
+  for(let i = 0; i < img.length; i++) {
+    let srcImg = `http://localhost/stone-store/assets/img/apps/${img[i].filename}`;
+    let newElement = $("<img>", {
+      src: srcImg,
+      class: "my-1",
+    });
+    modal.find("figure").append(newElement);
+  }
+  modal.find("form")[0].action = "/stone-store/applications/" + id;
+  // console.log(modal.find("#img")[0]);
+});
+
+// passing data delete single app modal
+$("#deleteAppConfirmSingle").on("show.bs.modal", function (event) {
+  let button = $(event.relatedTarget);
+  let id = button.data("id")
+  // update modal content
+  let modal = $(this);
+  let srcDelete = `http://localhost/stone-store/applications/${id}`;
+  modal.find("#deleteButtonSingle").attr("href", srcDelete)
+  // console.log(modal.find("#img")[0]);
+});
+
 
 let checkedValues = [];
 let allState = false;
@@ -722,7 +768,7 @@ let checkboxes = $("input[data-checkboxes='mygroup']").click(function () {
     modal.find("#deleteButtonSingle").attr("href", srcImg)
     // console.log(modal.find("#img")[0]);
   });
-})
+});
 
 // Image Upload & Preview
 let imageUploadInputEdit = $("#image-upload-edit")[0];
@@ -751,7 +797,7 @@ function previewImageEdit() {
 }
 
 
-// CATEGORY
+// CATEGORY Validation
 $(function () {
   let editButton = $("#edit-button");
   let addButton = $("#add-button");

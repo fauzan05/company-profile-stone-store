@@ -81,7 +81,7 @@ class Product_model extends CI_Model
     {
         //upload an image options
         $config = array();
-        $config['upload_path'] = FCPATH . 'assets/img/';
+        $config['upload_path'] = FCPATH . 'assets/img/products/';
         $config['allowed_types'] = 'jpg|png|jpeg';
         $config['max_size'] = 10000;
         $config['overwrite'] = FALSE;

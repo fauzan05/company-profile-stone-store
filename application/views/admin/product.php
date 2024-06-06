@@ -109,7 +109,7 @@
 													</td>
 													<td>
 														<img alt="image"
-															src="<?= base_url('assets/img/' . $product->product_image) ?>"
+															src="<?= base_url('assets/img/products/' . $product->product_image) ?>"
 															width="80" data-toggle="title" title="">
 													</td>
 													<td>

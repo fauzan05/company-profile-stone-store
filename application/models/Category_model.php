@@ -85,14 +85,13 @@ class Category_model extends CI_Model
             $this->db->update($this->_table, $data);
             return true;
         }
-
     }
 
     private function set_upload_options()
     {
         //upload an image options
         $config = array();
-        $config['upload_path'] = FCPATH . 'assets/img/';
+        $config['upload_path'] = FCPATH . 'assets/img/categories/';
         $config['allowed_types'] = 'jpg|png|jpeg';
         $config['max_size'] = 10000;
         $config['overwrite'] = FALSE;

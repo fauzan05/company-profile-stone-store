@@ -2699,6 +2699,11 @@ body.layout-3 .main-footer {
   gap: 0 !important;
 }
 
+#image-preview-edit figure{
+  max-height: 200px !important;
+  overflow-y: auto;
+}
+
 .main-footer {
   padding: 20px 30px 20px 280px;
   margin-top: 40px;

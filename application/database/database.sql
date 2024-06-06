@@ -6,10 +6,11 @@ show tables;
 
 create table apps(
 	id int not null auto_increment,
-    company_name varchar(255) not null,
-    address text not null,
-    phone_number varchar(50) not null,
-    email varchar(255) not null,
+    company_name varchar(255) null,
+    address text null,
+    phone_number varchar(50) null,
+    email varchar(255) null,
+    logo_filename varchar(255) null,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     primary key (id)
@@ -89,7 +90,7 @@ create table image_applications(
 	application_id int not null,
     filename varchar(255) not null,
 	primary key(id),
-	foreign key(application_id) references applications(id),
+	foreign key(application_id) references applications(id) on delete cascade,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) engine=innoDB;
@@ -104,16 +105,17 @@ select * from categories;
 
 drop table users;
 drop table product_sizes;
-
+drop table apps;
 drop database stone_store;
 
-alter table products
-add sizes text null after category_id;
+alter table apps
+add logo_filename text null after email;
 
 desc categories;
 desc products;
 show create table products;
 show create table image_products;
+show create table apps;
 
 alter table image_products
 drop foreign key image_products_ibfk_1;
