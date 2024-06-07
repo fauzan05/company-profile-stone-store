@@ -746,6 +746,16 @@ $("#editSocialMediaModal").on("show.bs.modal", function (event) {
   modal.find("form").attr("action", action)
 });
 
+// passing data edit social media modal
+$("#deleteSocialMediaConfirmSingle").on("show.bs.modal", function (event) {
+  let button = $(event.relatedTarget);
+  let id = button.data("id")
+  // update modal content
+  let modal = $(this);
+  let srcDelete = `http://localhost/stone-store/settings/social-media/${id}`;
+  modal.find("#deleteSocialMediaButtonSingle").attr("href", srcDelete)
+});
+
 
 let checkedValues = [];
 let allState = false;

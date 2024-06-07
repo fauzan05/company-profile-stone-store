@@ -21,4 +21,17 @@ class Social_Media_model extends CI_Model
         $this->db->insert($this->_table, $data);
         return true;
     }
+
+    public function edit_social_media($data, $id)
+    {
+        $this->db->where('id', $id);
+        $this->db->update($this->_table, $data);
+        return true;
+    }
+    public function delete_social_media_by_id($id)
+    {
+        $this->db->where('id', $id);
+        $this->db->delete($this->_table);
+        return true;
+    }
 }

@@ -67,5 +67,6 @@ $route['settings'] = 'admin/setting';
 $route['settings/profile'] = 'admin/setting_profile';
 $route['settings/password'] = 'admin/setting_password';
 $route['settings/social-media'] = 'admin/setting_social_media';
+$route['settings/social-media/(:num)'] = 'admin/edit_social_media/$1';
 $route['upload_product_images'] = 'product/upload_product_images';
 // $route['create_admin'] = 'admin/create_account';

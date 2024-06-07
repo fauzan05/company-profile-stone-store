@@ -472,4 +472,33 @@ class Admin extends CI_Controller {
         $data['social_medias'] = $this->Social_Media_model->getAllSocialMedias();
         $this->load->view('admin/social_media', $data);
     }
+
+    public function edit_social_media($id)
+    {
+        // cek methodnya
+        $method = $this->input->method();
+        if ($method === "get") {
+            $this->Social_Media_model->delete_social_media_by_id($id);
+            $this->session->set_flashdata('message', 'Berhasil menghapus sosial media');
+            $this->session->set_flashdata('alert_color', 'success');
+            return redirect('settings/social-media');
+        }
+
+        $data = [
+            'link' => trim($this->input->post('link')),
+            'type' => trim($this->input->post('type')),
+            'account_name' => 'dummy'
+        ];
+
+        $result = $this->Social_Media_model->edit_social_media($data, $id);
+        if ($result) {
+            $this->session->set_flashdata('message', 'Berhasil mengedit sosial media');
+            $this->session->set_flashdata('alert_color', 'success');
+            redirect('settings/social-media');
+        } else {
+            $this->session->set_flashdata('message', 'Gagal mengedit sosial media');
+            $this->session->set_flashdata('alert_color', 'danger');
+            redirect('settings/social-media');
+        }
+    }
 }

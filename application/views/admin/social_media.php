@@ -115,7 +115,7 @@
 																class="btn btn-secondary">Link</a></td>
 														<td class="d-flex align-items-center justify-content-start">
 															<i class="fa-solid fa-trash-can text-danger cursor-pointer"
-																data-id="" data-toggle="modal"
+																data-id="<?= $social_media->id ?>" data-toggle="modal"
 																data-target="#deleteSocialMediaConfirmSingle"></i>
 															<i class="mx-3 fa-solid fa-pen-to-square cursor-pointer"
 																data-id="<?= $social_media->id ?>"
@@ -174,11 +174,33 @@
 									</div>
 								</div>
 								<div class="card-footer bg-whitesmoke text-md-right ">
-									<button class="btn btn-primary w-100" id="save-btn">Tambah Sosial
+									<button class="btn btn-primary w-100" id="save-btn">Edit Sosial
 										Media</button>
 								</div>
 							</div>
 						</form>
+					</div>
+				</div>
+			</div>
+			<!-- delete social media modal single -->
+			<div class="modal fade" tabindex="-1" role="dialog" id="deleteSocialMediaConfirmSingle">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">Konfirmasi</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<p>Apakah anda yakin ingin menghapus sosial media ini?</p>
+						</div>
+						<div class="modal-footer bg-whitesmoke br">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Keluar</button>
+							<a class="btn btn-primary text-light" id="deleteSocialMediaButtonSingle">
+								Hapus
+							</a>
+						</div>
 					</div>
 				</div>
 			</div>
