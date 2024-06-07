@@ -4,16 +4,16 @@ $current_path = $_SERVER['PATH_INFO'];
 <div class="main-sidebar sidebar-style-2">
 	<aside id="sidebar-wrapper">
 		<div class="sidebar-brand">
-			<a href="index.html">
+			<a href="/stone-store/dashboard">
 				<?php if((boolean)$this->Setting_model->getAllSettings()[0]->is_show_logo): ?>
 					<img class="w-10" src="<?= base_url('assets/img/systems/' .  $this->Setting_model->getAllSettings()[0]->logo_filename) ?>" alt="">
 				<?php endif; ?>
 			 <?= !empty($this->Setting_model->getAllSettings()[0]->company_name) ? $this->Setting_model->getAllSettings()[0]->company_name : ''?></a>
 		</div>
 		<div class="sidebar-brand sidebar-brand-sm">
-			<a href="index.html">
+			<a href="/stone-store/dashboard">
 			<?php if((boolean)$this->Setting_model->getAllSettings()[0]->is_show_logo): ?>
-					<img class="w-10" src="<?= base_url('assets/img/systems/' .  $this->Setting_model->getAllSettings()[0]->logo_filename) ?>" alt="">
+					<img class="w-75" src="<?= base_url('assets/img/systems/' .  $this->Setting_model->getAllSettings()[0]->logo_filename) ?>" alt="">
 			<?php else:
 				$company_name = $this->Setting_model->getAllSettings()[0]->company_name ? $this->Setting_model->getAllSettings()[0]->company_name : 'Untitled';
 				$explode = explode(' ', $company_name);
