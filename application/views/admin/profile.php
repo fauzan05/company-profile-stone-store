@@ -40,61 +40,55 @@
 									<div class="card-body">
 										<ul class="nav nav-pills flex-column">
 											<li class="nav-item"><a href="http://localhost/stone-store/settings"
-													class="nav-link active">Aplikasi</a></li>
-											<li class="nav-item"><a href="http://localhost/stone-store/settings/profile" class="nav-link">Profil</a></li>
-											<li class="nav-item"><a href="http://localhost/stone-store/settings/password"
+													class="nav-link">Aplikasi</a></li>
+											<li class="nav-item"><a href="http://localhost/stone-store/settings/profile"
+													class="nav-link active">Profil</a></li>
+											<li class="nav-item"><a
+													href="http://localhost/stone-store/settings/password"
 													class="nav-link">Password</a></li>
-											<li class="nav-item"><a href="http://localhost/stone-store/settings/social-media"
+											<li class="nav-item"><a
+													href="http://localhost/stone-store/settings/social-media"
 													class="nav-link">Sosial Media</a></li>
 										</ul>
 									</div>
 								</div>
 							</div>
 							<div class="col-md-8">
-								<form id="setting-form" action="/stone-store/settings" method="post"
-									enctype="multipart/form-data">
+								<form id="setting-form" action="/stone-store/settings/profile" method="post">
 									<div class="card" id="settings-card">
 										<div class="card-header">
-											<h4>Pengaturan Aplikasi</h4>
+											<h4>Pengaturan Profil Pengguna</h4>
 										</div>
 										<div class="card-body">
-											<p class="text-muted">Pengaturan utama seperti nama perusahaan, alamat,
+											<p class="text-muted">Pengaturan profil pengguna seperti nama, username,
 												email, dan lainnya.</p>
 											<div class="form-group row align-items-center">
-												<label for="site-title"
+												<label for="first-name"
 													class="form-control-label col-sm-3 text-md-right">Nama
-													Perusahaan</label>
+													Depan</label>
 												<div class="col-sm-6 col-md-9">
-													<input type="text" name="company_name" class="form-control"
-														id="site-title"
-														value="<?= !empty($settings->company_name) ? $settings->company_name : '' ?>">
+													<input type="text" name="first_name" class="form-control"
+														id="first-name"
+														value="<?= !empty($current_user->first_name) ? $current_user->first_name : '' ?>">
 												</div>
 											</div>
 											<div class="form-group row align-items-center">
-												<label class="form-control-label col-sm-3 text-md-right">
-													Logo Perusahaan</label>
+												<label for="last-name"
+													class="form-control-label col-sm-3 text-md-right">Nama
+													Belakang</label>
 												<div class="col-sm-6 col-md-9">
-													<div class="custom-file">
-														<input type="file" name="site_logo" class="custom-file-input"
-															id="site-logo" accept="image/png, image/jpeg, image/jpg">
-														<label class="custom-file-label">Choose File</label>
-													</div>
-													<div class="form-text text-muted">Batas maksimum gambar adalah 1MB |
-														Gambar yang diizinkan adalah jpg, jpeg, dan png.</div>
-													<div class="col-sm-6 col-md-9 custom-control custom-checkbox mt-3">
-														<input type="checkbox" name="show_logo"
-															class="custom-control-input" tabindex="3" id="show-logo" value="<?= !empty($settings->is_show_logo) ? $settings->is_show_logo : true ?>" <?php if ((boolean)$settings->is_show_logo): ?> checked <?php endif; ?>>
-														<label class="custom-control-label" for="show-logo">Tampilkan
-															logo perusahaan</label>
-													</div>
+													<input type="text" name="last_name" class="form-control"
+														id="last-name"
+														value="<?= !empty($current_user->last_name) ? $current_user->last_name : '' ?>">
 												</div>
 											</div>
 											<div class="form-group row align-items-center">
-												<label for="site-address"
-													class="form-control-label col-sm-3 text-md-right">Alamat</label>
+												<label for="username"
+													class="form-control-label col-sm-3 text-md-right">Username</label>
 												<div class="col-sm-6 col-md-9">
-													<textarea class="form-control" name="address"
-														id="site-address"><?= !empty($settings->address) ? $settings->address : '' ?></textarea>
+													<input type="text" name="username" class="form-control"
+														id="username"
+														value="<?= !empty($current_user->username) ? $current_user->username : '' ?>">
 												</div>
 											</div>
 											<div class="form-group row align-items-center">
@@ -103,7 +97,7 @@
 												<div class="col-sm-6 col-md-9">
 													<input type="email" name="email" class="form-control"
 														id="site-email"
-														value="<?= !empty($settings->email) ? $settings->email : '' ?>">
+														value="<?= !empty($current_user->email) ? $current_user->email : '' ?>">
 												</div>
 											</div>
 											<div class="form-group row align-items-center">
@@ -113,7 +107,7 @@
 												<div class="col-sm-6 col-md-9">
 													<input type="text" name="phone_number" class="form-control"
 														id="site-phone"
-														value="<?= !empty($settings->phone_number) ? $settings->phone_number : '' ?>">
+														value="<?= !empty($current_user->phone_number) ? $current_user->phone_number : '' ?>">
 												</div>
 											</div>
 										</div>

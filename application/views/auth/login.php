@@ -10,7 +10,7 @@
 					<div
 						class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
 						<div class="login-brand">
-							<img src="<?= base_url('assets/img/gemstone-logo.svg') ?>" alt="logo" width="100"
+							<img src="<?= (boolean)$this->Setting_model->getAllSettings()[0]->is_show_logo ? base_url('assets/img/systems/' .  $this->Setting_model->getAllSettings()[0]->logo_filename) : base_url('assets/img/systems/gemstone-logo.svg') ?>" alt="logo" width="100"
 								class="shadow-light rounded-circle">
 						</div>
 
@@ -39,7 +39,7 @@
 										<div class="d-block">
 											<label for="password" class="control-label">Password</label>
 											<div class="float-right">
-												<a href="auth-forgot-password.html" class="text-small">
+												<a href="#" class="text-small">
 													Lupa Kata Sandi?
 												</a>
 											</div>

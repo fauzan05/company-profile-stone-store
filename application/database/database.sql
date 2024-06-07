@@ -11,6 +11,8 @@ create table apps(
     phone_number varchar(50) null,
     email varchar(255) null,
     logo_filename varchar(255) null,
+    is_show_logo bool null,
+    google_map_link text null,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     primary key (id)
@@ -95,6 +97,14 @@ create table image_applications(
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) engine=innoDB;
 
+create table social_media(
+	id int not null auto_increment,
+	type varchar(50) not null,
+    account_name varchar(255) not null,
+    link text not null,
+    primary key(id)
+) engine=innoDB;
+
 select * from users;
 select * from products;
 select * from apps;
@@ -102,6 +112,7 @@ select * from image_applications;
 select * from applications;
 select * from image_products;
 select * from categories;
+select * from social_media;
 
 drop table users;
 drop table product_sizes;
@@ -109,7 +120,7 @@ drop table apps;
 drop database stone_store;
 
 alter table apps
-add logo_filename text null after email;
+add google_map_link text null after is_show_logo;
 
 desc categories;
 desc products;

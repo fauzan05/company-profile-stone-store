@@ -585,7 +585,7 @@ $(function () {
 
 // digunakan agar modal selalu aktif tanpa harus ditekan terlebih dahulu
 // window.onload = function() {
-//     var myModal = new bootstrap.Modal(document.getElementById('addProductModal'));
+//     var myModal = new bootstrap.Modal(document.getElementById('editSocialMediaModal'));
 //     myModal.show();
 // };
 
@@ -619,7 +619,7 @@ $("#editCategoryModal").on("show.bs.modal", function (event) {
   let modal = $(this);
   modal.find("#category_name_edit").val(name)
   modal.find("#category_description_edit").val(desc)
-  let srcImg = `http://localhost/stone-store/assets/img/${img}`;
+  let srcImg = `http://localhost/stone-store/assets/img/categories/${img}`;
   modal.find("#img").attr("src", srcImg)
   modal.find("form")[0].action = "/stone-store/categories/" + id
   // console.log(modal.find("#img")[0]);
@@ -654,7 +654,7 @@ $("#editProductModal").on("show.bs.modal", function (event) {
   modal.find("#product_desc_edit").val(desc)
   // modal.find(`#category-${category_id}`).val(category_id)
   console.log(modal.find(`#product_category_edit option[value=${category_id}]`).attr('selected', 'selected')[0]);
-  let srcImg = `http://localhost/stone-store/assets/img/${img}`;
+  let srcImg = `http://localhost/stone-store/assets/img/products/${img}`;
   modal.find("#img").attr("src", srcImg)
   modal.find("form")[0].action = "/stone-store/products/" + id;
   MyEditor.setData(sizes)
@@ -729,6 +729,21 @@ $("#deleteAppConfirmSingle").on("show.bs.modal", function (event) {
   let srcDelete = `http://localhost/stone-store/applications/${id}`;
   modal.find("#deleteButtonSingle").attr("href", srcDelete)
   // console.log(modal.find("#img")[0]);
+});
+
+
+// passing data edit social media modal
+$("#editSocialMediaModal").on("show.bs.modal", function (event) {
+  let button = $(event.relatedTarget);
+  let id = button.data("id")
+  let type = button.data("type")
+  let link = button.data("link")
+  // update modal content
+  let modal = $(this);
+  modal.find("#link").val(link);
+  modal.find("#type").val(type);
+  let action = `/stone-store/settings/social-media/${id}`;
+  modal.find("form").attr("action", action)
 });
 
 

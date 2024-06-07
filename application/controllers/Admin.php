@@ -4,7 +4,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Admin extends CI_Controller {
     private $now;
-    private $current_user;
     public function __construct()
     {
         parent::__construct();
@@ -16,10 +15,10 @@ class Admin extends CI_Controller {
         $this->load->model('Category_model');
         $this->load->model('Application_model');
         $this->load->model('Setting_model');
+        $this->load->model('Social_Media_model');
         $this->load->library('form_validation');
         date_default_timezone_set('Asia/Jakarta');
         $this->now = date('Y-m-d H:i:s');
-        $this->current_user = $this->User_model->current_user()->username;
     }
 
     public function index()
@@ -33,7 +32,6 @@ class Admin extends CI_Controller {
         $data['meta'] = [
             'title' => 'Stone Store - Admin Dashboard',
         ];
-        $data['current_user'] = $this->current_user;
         $this->load->view('admin/dashboard', $data);
     }
 
@@ -333,5 +331,145 @@ class Admin extends CI_Controller {
         ];
         $data['settings'] = $this->Setting_model->getAllSettings()[0];
         $this->load->view('admin/setting', $data);
+    }
+
+    public function setting_profile()
+    {
+        $method = $this->input->method();
+        switch ($method) {
+            case 'post':
+                $this->handle_setting_profile_post();
+                break;
+            case 'get':
+                $this->handle_setting_profile_get();
+                break;
+            default:
+                show_404();
+                break;
+        }
+    }
+
+    public function handle_setting_profile_post()
+    {
+        $data = [
+            'first_name' => $this->input->post('first_name'),
+            'last_name' => $this->input->post('last_name'),
+            'username' => $this->input->post('username'),
+            'email' => $this->input->post('email'),
+            'phone_number' => $this->input->post('phone_number')
+        ];
+
+        $result = $this->User_model->update_user($data);
+        if ($result) {
+            $this->session->set_flashdata('message', 'Berhasil mengubah data pengguna');
+            $this->session->set_flashdata('alert_color', 'success');
+            redirect('settings/profile');
+        } else {
+            $this->session->set_flashdata('message', 'Gagal mengubah data pengguna');
+            $this->session->set_flashdata('alert_color', 'danger');
+            redirect('settings/profile');
+        }
+    }
+    public function handle_setting_profile_get()
+    {
+        $data['meta'] = [
+            'title' => 'Stone Store - Admin Profile',
+        ];
+        $data['current_user'] = $this->User_model->current_user();
+        $this->load->view('admin/profile', $data);
+    }
+
+    public function setting_password()
+    {
+        $method = $this->input->method();
+        switch ($method) {
+            case 'post':
+                $this->handle_setting_password_post();
+                break;
+            case 'get':
+                $this->handle_setting_password_get();
+                break;
+            default:
+                show_404();
+                break;
+        }
+    }
+
+    public function handle_setting_password_post()
+    {
+        $this->load->library('form_validation');
+        $rules = $this->User_model->update_password_rules();
+        $this->form_validation->set_rules($rules);
+        if (!$this->form_validation->run()) {
+            $this->load->view('admin/password');
+        } else {
+            $data = [
+                'old_password' => $this->input->post('old_password'),
+                'new_password' => $this->input->post('new_password'),
+                'new_password_confirm' => $this->input->post('new_password_confirm')
+            ];
+            $result = $this->User_model->update_password($data);
+            if ($result) {
+                $this->session->set_flashdata('message', 'Berhasil mengubah password');
+                $this->session->set_flashdata('alert_color', 'success');
+                redirect('settings/password');
+            } else {
+                $this->session->set_flashdata('message', 'Gagal mengubah password');
+                $this->session->set_flashdata('alert_color', 'danger');
+                redirect('settings/password');
+            }
+        }
+    }
+    
+    public function handle_setting_password_get()
+    {
+        $data['meta'] = [
+            'title' => 'Stone Store - Admin Password',
+        ];
+        $this->load->view('admin/password', $data);
+    }
+
+    public function setting_social_media()
+    {
+        $method = $this->input->method();
+        switch ($method) {
+            case 'post':
+                $this->handle_setting_social_media_post();
+                break;
+            case 'get':
+                $this->handle_setting_social_media_get();
+                break;
+            default:
+                show_404();
+                break;
+        }
+    }
+
+    public function handle_setting_social_media_post()
+    {
+        $data = [
+            'link' => trim($this->input->post('link')),
+            'type' => trim($this->input->post('type')),
+            'account_name' => 'dummy'
+        ];
+
+        $result = $this->Social_Media_model->add_social_media($data);
+        if ($result) {
+            $this->session->set_flashdata('message', 'Berhasil menambah sosial media');
+            $this->session->set_flashdata('alert_color', 'success');
+            redirect('settings/social-media');
+        } else {
+            $this->session->set_flashdata('message', 'Gagal menambah sosial media');
+            $this->session->set_flashdata('alert_color', 'danger');
+            redirect('settings/social-media');
+        }
+    }
+    public function handle_setting_social_media_get()
+    {
+        $data['meta'] = [
+            'title' => 'Stone Store - Admin Sosial Media',
+        ];
+        $data['social_medias'] = $this->Social_Media_model->getAllSocialMedias();
+        $this->load->view('admin/social_media', $data);
     }
 }

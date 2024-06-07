@@ -8,6 +8,7 @@ class Auth extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('User_model');
+        $this->load->model('Setting_model');
         $this->load->library('form_validation');        
     }
 
@@ -41,7 +42,7 @@ class Auth extends CI_Controller {
         if ($this->User_model->login($email, $password, $remember_me)) {
             redirect('/dashboard', 'location');
         } else {
-			$this->session->set_flashdata('message_login_error', 'Email dan password salah!');
+			$this->session->set_flashdata('message_login_error', 'Email atau password salah!');
             $this->load->view('auth/login');
         }
     }
@@ -53,9 +54,6 @@ class Auth extends CI_Controller {
         $data['error'] = '';
 
 		$this->load->view('auth/login', $data);
-    }
-    private function handle_login_delete() {
-
     }
 
     public function register()

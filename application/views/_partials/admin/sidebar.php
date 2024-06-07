@@ -4,10 +4,28 @@ $current_path = $_SERVER['PATH_INFO'];
 <div class="main-sidebar sidebar-style-2">
 	<aside id="sidebar-wrapper">
 		<div class="sidebar-brand">
-			<a href="index.html"><img class="w-10" src="<?= (boolean)$this->Setting_model->getAllSettings()[0]->is_show_logo ? base_url('assets/img/systems/' .  $this->Setting_model->getAllSettings()[0]->logo_filename) : base_url('assets/img/systems/gemstone-logo.svg') ?>" alt=""> Stone Store</a>
+			<a href="index.html">
+				<?php if((boolean)$this->Setting_model->getAllSettings()[0]->is_show_logo): ?>
+					<img class="w-10" src="<?= base_url('assets/img/systems/' .  $this->Setting_model->getAllSettings()[0]->logo_filename) ?>" alt="">
+				<?php endif; ?>
+			 <?= !empty($this->Setting_model->getAllSettings()[0]->company_name) ? $this->Setting_model->getAllSettings()[0]->company_name : ''?></a>
 		</div>
 		<div class="sidebar-brand sidebar-brand-sm">
-			<a href="index.html"><img class="w-75" src="<?= (boolean)$this->Setting_model->getAllSettings()[0]->is_show_logo ? base_url('assets/img/systems/' .  $this->Setting_model->getAllSettings()[0]->logo_filename) : base_url('assets/img/systems/gemstone-logo.svg') ?>" alt=""></a>
+			<a href="index.html">
+			<?php if((boolean)$this->Setting_model->getAllSettings()[0]->is_show_logo): ?>
+					<img class="w-10" src="<?= base_url('assets/img/systems/' .  $this->Setting_model->getAllSettings()[0]->logo_filename) ?>" alt="">
+			<?php else:
+				$company_name = $this->Setting_model->getAllSettings()[0]->company_name ? $this->Setting_model->getAllSettings()[0]->company_name : 'Untitled';
+				$explode = explode(' ', $company_name);
+				$first_two_words = array_slice($explode, 0, 2);
+				$initials = '';
+				foreach($first_two_words as $word){
+					$initials .= strtoupper($word[0]);
+				}
+				echo $initials;
+			endif;
+			?>
+			</a>
 		</div>
 		<ul class="sidebar-menu mt-3">
 			<li class="menu-header">Dashboard</li>
