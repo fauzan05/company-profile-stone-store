@@ -39,22 +39,22 @@
 									</div>
 									<div class="card-body">
 										<ul class="nav nav-pills flex-column">
-											<li class="nav-item"><a href="http://localhost/stone-store/settings"
+											<li class="nav-item"><a href="<?= $domain_url ?>admin/settings"
 													class="nav-link">Aplikasi</a></li>
-											<li class="nav-item"><a href="http://localhost/stone-store/settings/profile"
+											<li class="nav-item"><a href="<?= $domain_url ?>admin/settings/profile"
 													class="nav-link">Profil</a></li>
 											<li class="nav-item"><a
-													href="http://localhost/stone-store/settings/password"
+													href="<?= $domain_url ?>admin/settings/password"
 													class="nav-link active">Password</a></li>
 											<li class="nav-item"><a
-													href="http://localhost/stone-store/settings/social-media"
+													href="<?= $domain_url ?>admin/settings/social-media"
 													class="nav-link">Sosial Media</a></li>
 										</ul>
 									</div>
 								</div>
 							</div>
 							<div class="col-md-8">
-								<form id="setting-form" action="/stone-store/settings/password" method="post">
+								<form id="setting-form" action="<?= $domain_url ?>admin/settings/password" method="post">
 									<div class="card" id="settings-card">
 										<div class="card-header">
 											<h4>Pengaturan Password Pengguna</h4>

@@ -132,7 +132,7 @@
 												<ul class="pagination">
 													<li class="page-item <?= $current_page > 1 ? '' : 'disabled' ?>">
 														<a class="page-link"
-															href="/stone-store/applications?page=<? $current_page - 1 ?>"
+															href="<?= $domain_url ?>admin/applications?page=<? $current_page - 1 ?>"
 															aria-label="Previous">
 															<span aria-hidden="true">&laquo;</span>
 															<span class="sr-only">Previous</span>
@@ -145,13 +145,13 @@
 													?>
 													<li class="page-item <?= $current_page == $i ? 'active' : '' ?>">
 														<a class="page-link"
-															href="/stone-store/applications?page=<?= $i ?>"><?= $i ?></a>
+															href="<?= $domain_url ?>admin/applications?page=<?= $i ?>"><?= $i ?></a>
 													</li>
 													<?php endfor; ?>
 													<li
 														class="page-item <?= $current_page >= $count_page ? 'disabled' : '' ?>">
 														<a class=" page-link"
-															href="/stone-store/applications?page=<?= $current_page + 1 ?>"
+															href="<?= $domain_url ?>admin/applications?page=<?= $current_page + 1 ?>"
 															aria-label="Next">
 															<span aria-hidden="true">&raquo;</span>
 															<span class="sr-only">Next</span>
@@ -180,7 +180,7 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<form action="/stone-store/applications" method="post" enctype="multipart/form-data">
+				<form action="<?= $domain_url ?>admin/applications" method="post" enctype="multipart/form-data">
 					<div class="modal-body d-flex flex-column align-items-start justify-content-center">
 						<div class="row d-flex align-items-center justify-content-around w-100 mb-3">
 							<div class="form-group row mb-4 col-5">

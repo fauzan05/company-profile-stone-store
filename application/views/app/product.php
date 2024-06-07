@@ -45,58 +45,18 @@
         <div class="container-fluid position-relative p-0">
         <?php $this->load->view('_partials/app/navbar.php') ?>
         
-            <!-- Carousel Start -->
-            <div class="header-carousel owl-carousel">
-                <div class="header-carousel-item">
-                    <img src="<?= base_url('assets/img/systems/batu-carausel-1.jpeg') ?>" class="img-fluid w-100" alt="Image">
-                    <div class="carousel-caption">
-                        <div class="carousel-caption-content p-3">
-                            <!-- <h5 class="text-white text-uppercase fw-bold mb-4" style="letter-spacing: 3px;">Kualitas Batu Pilihan</h5> -->
-                            <h1 class="display-1 text-capitalize text-white mb-4">Spesialis Suplayer Batu Alam Kebumen</h1>
-                            <!-- <p class="mb-5 fs-5">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,  -->
-                            </p>
-                            <a class="btn btn-primary rounded-pill text-white py-3 px-5" href="#">Pesan Sekarang</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="header-carousel-item">
-                    <img src="<?= base_url('assets/img/systems/batu-carausel-2.jpeg') ?>" class="img-fluid w-100" alt="Image">
-                    <div class="carousel-caption">
-                        <div class="carousel-caption-content p-3">
-                            <!-- <h5 class="text-white text-uppercase fw-bold mb-4" style="letter-spacing: 3px;">Kualitas Batu Pilihan</h5> -->
-                            <h1 class="display-1 text-capitalize text-white mb-4">Spesialis Suplayer Batu Alam Kebumen</h1>
-                            <!-- <p class="mb-5 fs-5 animated slideInDown">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,  -->
-                            </p>
-                            <a class="btn btn-primary rounded-pill text-white py-3 px-5" href="#">Pesan Sekarang</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="header-carousel-item">
-                    <img src="<?= base_url('assets/img/systems/batu-carausel-3.jpeg') ?>" class="img-fluid w-100" alt="Image">
-                    <div class="carousel-caption">
-                        <div class="carousel-caption-content p-3">
-                            <!-- <h5 class="text-white text-uppercase fw-bold mb-4" style="letter-spacing: 3px;">Kualitas Batu Pilihan</h5> -->
-                            <h1 class="display-1 text-capitalize text-white mb-4">Spesialis Suplayer Batu Alam Kebumen</h1>
-                            <!-- <p class="mb-5 fs-5 animated slideInDown">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,  -->
-                            </p>
-                            <a class="btn btn-primary rounded-pill text-white py-3 px-5" href="#">Pesan Sekarang</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="header-carousel-item">
-                    <img src="<?= base_url('assets/img/systems/batu-carausel-4.jpeg') ?>" class="img-fluid w-100" alt="Image">
-                    <div class="carousel-caption">
-                        <div class="carousel-caption-content p-3">
-                            <!-- <h5 class="text-white text-uppercase fw-bold mb-4" style="letter-spacing: 3px;">Kualitas Batu Pilihan</h5> -->
-                            <h1 class="display-1 text-capitalize text-white mb-4">Spesialis Suplayer Batu Alam Kebumen</h1>
-                            <!-- <p class="mb-5 fs-5 animated slideInDown">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,  -->
-                            </p>
-                            <a class="btn btn-primary rounded-pill text-white py-3 px-5" href="#">Pesan Sekarang</a>
-                        </div>
-                    </div>
-                </div>
+           <!-- Header Start -->
+        <div class="container-fluid bg-breadcrumb">
+            <div class="container text-center py-5" style="max-width: 900px;">
+                <h3 class="text-white display-3 mb-4 wow fadeInDown" data-wow-delay="0.1s">Our Services</h1>
+                <ol class="breadcrumb justify-content-center mb-0 wow fadeInDown" data-wow-delay="0.3s">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                    <li class="breadcrumb-item active text-primary">Services</li>
+                </ol>    
             </div>
-            <!-- Carousel End -->
+        </div>
+        <!-- Header End -->
         </div>
         <!-- Navbar & Hero End -->
 

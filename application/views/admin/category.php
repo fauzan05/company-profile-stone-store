@@ -121,7 +121,7 @@
 												<ul class="pagination">
 													<li class="page-item <?= $current_page > 1 ? '' : 'disabled' ?>">
 														<a class="page-link"
-															href="/stone-store/categories?page=<? $current_page - 1 ?>"
+															href="<?= $domain_url ?>admin/categories?page=<? $current_page - 1 ?>"
 															aria-label="Previous">
 															<span aria-hidden="true">&laquo;</span>
 															<span class="sr-only">Previous</span>
@@ -134,11 +134,11 @@
 													?>
 													<li class="page-item <?= $current_page == $i ? 'active' : '' ?>">
 														<a class="page-link"
-															href="/stone-store/categories?page=<?= $i ?>"><?= $i ?></a>
+															href="<?= $domain_url ?>admin/categories?page=<?= $i ?>"><?= $i ?></a>
 													</li>
 													<?php endfor;?>
 													<li class="page-item <?= $current_page >= $count_page ? 'disabled' : '' ?>">
-														<a class=" page-link" href="/stone-store/categories?page=<?= $current_page+1 ?>" aria-label="Next">
+														<a class=" page-link" href="<?= $domain_url ?>admin/categories?page=<?= $current_page+1 ?>" aria-label="Next">
 														<span aria-hidden="true">&raquo;</span>
 														<span class="sr-only">Next</span>
 														</a>
@@ -166,7 +166,7 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<form action="/stone-store/categories" method="post" enctype="multipart/form-data">
+				<form action="<?= $domain_url ?>admin/categories" method="post" enctype="multipart/form-data">
 					<?php if ($this->session->flashdata('add_category_error')): ?>
 					<div class="alert alert-danger">
 						<?php echo $this->session->flashdata('add_category_error'); ?>

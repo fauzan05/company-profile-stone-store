@@ -4,9 +4,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Admin extends CI_Controller {
     private $now;
+    private $domain_url;
     public function __construct()
     {
         parent::__construct();
+        $this->domain_url = $this->config->item('domain_url');
         $this->load->model('Product_model');
         $this->load->model('User_model');
         if(!$this->User_model->current_user()){
@@ -29,6 +31,7 @@ class Admin extends CI_Controller {
         $data['total_product'] = $total_product;
         $data['total_category'] = $total_category;
         $data['total_app'] = $total_app;
+        $data['domain_url'] = $this->domain_url;
         $data['meta'] = [
             'title' => 'Stone Store - Admin Dashboard',
         ];
@@ -74,6 +77,7 @@ class Admin extends CI_Controller {
         $data['meta'] = [
             'title' => 'Stone Store - Admin Products',
         ];
+        $data['domain_url'] = $this->domain_url;
         $limit = 10;
         $data['limit'] = $limit;
         $query_string = $this->input->get("page", true) ? $this->input->get("page", true) : 1;
@@ -173,6 +177,7 @@ class Admin extends CI_Controller {
     {
         $query_string = $this->input->get("page", true) ? $this->input->get("page", true) : 1;
         $limit = 10;
+        $data['domain_url'] = $this->domain_url;
         $data['categories'] = $this->Category_model->getAllCategories($limit, $query_string-1);
         $data['total'] = $this->Category_model->get_total();
         // die(var_dump($data['total']));
@@ -244,6 +249,7 @@ class Admin extends CI_Controller {
     }
     public function handle_application_get()
     {
+        $data['domain_url'] = $this->domain_url;
         $query_string = $this->input->get("page", true) ? $this->input->get("page", true) : 1;
         $limit = 10;
         $data['applications'] = $this->Application_model->getAllApplications($limit, $query_string-1);
@@ -329,6 +335,7 @@ class Admin extends CI_Controller {
         $data['meta'] = [
             'title' => 'Stone Store - Admin Setting',
         ];
+        $data['domain_url'] = $this->domain_url;
         $data['settings'] = $this->Setting_model->getAllSettings()[0];
         $this->load->view('admin/setting', $data);
     }
@@ -375,6 +382,7 @@ class Admin extends CI_Controller {
         $data['meta'] = [
             'title' => 'Stone Store - Admin Profile',
         ];
+        $data['domain_url'] = $this->domain_url;
         $data['current_user'] = $this->User_model->current_user();
         $this->load->view('admin/profile', $data);
     }
@@ -426,6 +434,7 @@ class Admin extends CI_Controller {
         $data['meta'] = [
             'title' => 'Stone Store - Admin Password',
         ];
+        $data['domain_url'] = $this->domain_url;
         $this->load->view('admin/password', $data);
     }
 
@@ -469,6 +478,7 @@ class Admin extends CI_Controller {
         $data['meta'] = [
             'title' => 'Stone Store - Admin Sosial Media',
         ];
+        $data['domain_url'] = $this->domain_url;
         $data['social_medias'] = $this->Social_Media_model->getAllSocialMedias();
         $this->load->view('admin/social_media', $data);
     }

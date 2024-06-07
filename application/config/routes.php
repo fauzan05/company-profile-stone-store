@@ -49,6 +49,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
+
 $route['default_controller'] = 'app';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
@@ -56,17 +57,17 @@ $route['login'] = 'auth/login';
 $route['logout'] = 'auth/logout';
 $route['register'] = 'auth/register';
 $route['contact'] = 'contactperson/contact';
-$route['dashboard'] = 'admin';
-$route['products'] = 'admin/product';
-$route['categories'] = 'admin/category';
-$route['categories/(:num)'] = 'admin/edit_category/$1';
-$route['products/(:num)'] = 'admin/edit_product/$1';
-$route['applications'] = 'admin/application';
-$route['applications/(:num)'] = 'admin/edit_application/$1';
-$route['settings'] = 'admin/setting';
-$route['settings/profile'] = 'admin/setting_profile';
-$route['settings/password'] = 'admin/setting_password';
-$route['settings/social-media'] = 'admin/setting_social_media';
-$route['settings/social-media/(:num)'] = 'admin/edit_social_media/$1';
-$route['upload_product_images'] = 'product/upload_product_images';
+$route['admin/dashboard'] = 'admin';
+$route['admin/products'] = 'admin/product';
+$route['admin/categories'] = 'admin/category';
+$route['admin/categories/(:num)'] = 'admin/edit_category/$1';
+$route['admin/products/(:num)'] = 'admin/edit_product/$1';
+$route['admin/applications'] = 'admin/application';
+$route['admin/applications/(:num)'] = 'admin/edit_application/$1';
+$route['admin/settings'] = 'admin/setting';
+$route['admin/settings/profile'] = 'admin/setting_profile';
+$route['admin/settings/password'] = 'admin/setting_password';
+$route['admin/settings/social-media'] = 'admin/setting_social_media';
+$route['admin/settings/social-media/(:num)'] = 'admin/edit_social_media/$1';
+$route['admin/upload_product_images'] = 'product/upload_product_images';
 // $route['create_admin'] = 'admin/create_account';
