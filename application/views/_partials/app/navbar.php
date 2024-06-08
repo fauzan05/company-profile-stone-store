@@ -2,7 +2,7 @@
 $current_page = empty($_SERVER['PATH_INFO']) ? '/' : $_SERVER['PATH_INFO'];
 ?>
 <nav class="navbar navbar-expand-lg navbar-light bg-white px-4 px-lg-5 py-3 py-lg-0">
-	<a href="index.html" class="navbar-brand p-0">
+	<a href="<?= $domain_url ?>" class="navbar-brand p-0">
 		<h1 class="text-primary m-0">
         <?php if((boolean)$this->Setting_model->getAllSettings()[0]->is_show_logo): ?>
             <img src="<?= base_url('assets/img/systems/' . $this->Setting_model->getAllSettings()[0]->logo_filename) ?>" alt="Logo">

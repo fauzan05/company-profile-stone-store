@@ -364,7 +364,7 @@
 		</div>
 	</div>
 	<?php $this->load->view('_partials/admin/js_import.php') ?>
-
+	<script src="<?= base_url('assets/admin/modules/ckeditor5/build/ckeditor.js') ?>"></script>									
 	<script>
 		ClassicEditor
 			.create(document.querySelector('#ckeditor'), {

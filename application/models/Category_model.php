@@ -53,6 +53,7 @@ class Category_model extends CI_Model
             // rename the file
             rename($image_data['full_path'], $image_data['file_path'] . $hashed_filename . $file_ext);
             $data['image_filename'] = $hashed_filename . $file_ext;
+            $data['slug'] = $this->createSlug($data['name']);
             $this->db->insert($this->_table, $data);
             
             return true;
@@ -75,12 +76,14 @@ class Category_model extends CI_Model
                 // rename the file
                 rename($image_data['full_path'], $image_data['file_path'] . $hashed_filename . $file_ext);
                 $data['image_filename'] = $hashed_filename . $file_ext;
+                $data['slug'] = $this->createSlug($data['name']);
                 $this->db->where('id', $id);
                 $this->db->update($this->_table, $data);
                 
                 return true;
             }
         } else {
+            $data['slug'] = $this->createSlug($data['name']);
             $this->db->where('id', $id);
             $this->db->update($this->_table, $data);
             return true;
@@ -104,6 +107,30 @@ class Category_model extends CI_Model
         $this->db->where('category_id', $id);
         $this->db->delete('products');
         return $this->db->delete($this->_table, ['id' => $id]);
+    }
+
+    function createSlug($string) {
+        // Convert to lowercase
+        $string = strtolower($string);
+    
+        // Remove non-alphanumeric characters (excluding hyphens and spaces)
+        $string = preg_replace('/[^a-z0-9\s-]/', '', $string);
+    
+        // Replace multiple spaces or hyphens with a single hyphen
+        $string = preg_replace('/[\s-]+/', '-', $string);
+    
+        // Trim hyphens from the beginning and end of the string
+        $string = trim($string, '-');
+    
+        return $string;
+    }
+
+
+    public function get_image_categories($slug)
+    {
+        $this->db->where('slug', $slug);
+        $category = $this->db->get($this->_table)->result()[0];
+        return $category->image_filename;
     }
 
 }

@@ -589,6 +589,8 @@ $(function () {
 //     myModal.show();
 // };
 
+const domain_name = $("#domain-url").val();
+
 let imageUploadInput = $("#image-upload")[0];
 let imageContainer = $("#image-preview")[0];
 
@@ -619,9 +621,9 @@ $("#editCategoryModal").on("show.bs.modal", function (event) {
   let modal = $(this);
   modal.find("#category_name_edit").val(name)
   modal.find("#category_description_edit").val(desc)
-  let srcImg = `http://localhost/stone-store/assets/img/categories/${img}`;
+  let srcImg = `${domain_name}assets/img/categories/${img}`;
   modal.find("#img").attr("src", srcImg)
-  modal.find("form")[0].action = "/stone-store/categories/" + id
+  modal.find("form")[0].action = domain_name + "admin/categories/" + id
   // console.log(modal.find("#img")[0]);
 });
 
@@ -631,55 +633,65 @@ $("#deleteConfirmSingle").on("show.bs.modal", function (event) {
   let id = button.data("id")
   // update modal content
   let modal = $(this);
-  let srcImg = `http://localhost/stone-store/categories/${id}`;
+  let srcImg = `${domain_name}categories/${id}`;
   modal.find("#deleteButtonSingle").attr("href", srcImg)
   // console.log(modal.find("#img")[0]);
+});
+
+let MyEditor;
+document.addEventListener("DOMContentLoaded", function() {
+  if (typeof ClassicEditor !== 'undefined') {
+    ClassicEditor
+      .create(document.querySelector('#ckeditor-edit'), {
+        // Configuration options
+      })
+      .then(editor => {
+        MyEditor = editor;
+        MyEditor.model.document.on('change:data', () => {
+          let body_content = editor.getData();
+          $("#ckeditor-input-edit").val(body_content);
+        });
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  } else {
+    console.error('ClassicEditor is not defined');
+  }
 });
 
 
 // passing data edit produk modal
 $("#editProductModal").on("show.bs.modal", function (event) {
   let button = $(event.relatedTarget);
-  let id = button.data("id")
-  let name = button.data("name")
-  let category_id = button.data("category-id")
-  let desc = button.data("desc")
-  let img = button.data("img")
-  let color = button.data("color")
-  let sizes = button.data("sizes")
+  let id = button.data("id");
+  let name = button.data("name");
+  let category_id = button.data("category-id");
+  let desc = button.data("desc");
+  let img = button.data("img");
+  let color = button.data("color");
+  let sizes = button.data("sizes");
+
   // update modal content
   let modal = $(this);
-  modal.find("#product_name_edit").val(name)
-  modal.find("#product_color_edit").val(color)
-  modal.find("#product_desc_edit").val(desc)
-  // modal.find(`#category-${category_id}`).val(category_id)
-  console.log(modal.find(`#product_category_edit option[value=${category_id}]`).attr('selected', 'selected')[0]);
-  let srcImg = `http://localhost/stone-store/assets/img/products/${img}`;
-  modal.find("#img").attr("src", srcImg)
-  modal.find("form")[0].action = "/stone-store/products/" + id;
-  MyEditor.setData(sizes)
-  // console.log(modal.find("#img")[0]);
-})
+  modal.find("#product_name_edit").val(name);
+  modal.find("#product_color_edit").val(color);
+  modal.find("#product_desc_edit").val(desc);
+  modal.find(`#product_category_edit option[value=${category_id}]`).attr('selected', 'selected');
 
-let MyEditor;
-if (typeof ClassicEditor !== 'undefined') {
-  ClassicEditor
-    .create(document.querySelector('#ckeditor-edit'), {
-      // Configuration options
-    })
-    .then(editor => {
-      MyEditor = editor;
-      MyEditor.model.document.on('change:data', () => {
-        let body_content = editor.getData();
-        $("#ckeditor-input-edit").val(body_content);
-      });
-    })
-    .catch(error => {
-      // console.error(error);
-    });
-} else {
-  // console.error('ClassicEditor is not defined');
-}
+  let srcImg = `${domain_name}assets/img/products/${img}`;
+  modal.find("#img").attr("src", srcImg);
+  modal.find("form")[0].action = domain_name + "admin/products/" + id;
+  // console.log(domain_name)
+  // Ensure MyEditor is defined before calling setData
+  if (MyEditor) {
+    MyEditor.setData(sizes);
+  } else {
+    console.error('MyEditor is not initialized');
+  }
+});
+
+
 
 
 // passing data delete single product modal
@@ -688,7 +700,7 @@ $("#deleteProductConfirmSingle").on("show.bs.modal", function (event) {
   let id = button.data("id")
   // update modal content
   let modal = $(this);
-  let srcDelete = `http://localhost/stone-store/products/${id}`;
+  let srcDelete = `${domain_name}admin/products/${id}`;
   modal.find("#deleteProductButtonSingle").attr("href", srcDelete)
   // console.log(modal.find("#img")[0]);
 });
@@ -709,14 +721,14 @@ $("#editAppModal").on("show.bs.modal", function (event) {
   modal.find("#app_title_edit").val(title)
   modal.find("#app_desc_edit").val(desc)
   for(let i = 0; i < img.length; i++) {
-    let srcImg = `http://localhost/stone-store/assets/img/apps/${img[i].filename}`;
+    let srcImg = `${domain_name}assets/img/apps/${img[i].filename}`;
     let newElement = $("<img>", {
       src: srcImg,
       class: "my-1",
     });
     modal.find("figure").append(newElement);
   }
-  modal.find("form")[0].action = "/stone-store/applications/" + id;
+  modal.find("form")[0].action = domain_name + "admin/applications/" + id;
   // console.log(modal.find("#img")[0]);
 });
 
@@ -726,7 +738,7 @@ $("#deleteAppConfirmSingle").on("show.bs.modal", function (event) {
   let id = button.data("id")
   // update modal content
   let modal = $(this);
-  let srcDelete = `http://localhost/stone-store/applications/${id}`;
+  let srcDelete = `${domain_name}applications/${id}`;
   modal.find("#deleteButtonSingle").attr("href", srcDelete)
   // console.log(modal.find("#img")[0]);
 });
@@ -742,7 +754,7 @@ $("#editSocialMediaModal").on("show.bs.modal", function (event) {
   let modal = $(this);
   modal.find("#link").val(link);
   modal.find("#type").val(type);
-  let action = `/stone-store/settings/social-media/${id}`;
+  let action = `${domain_name}admin/settings/social-media/${id}`;
   modal.find("form").attr("action", action)
 });
 
@@ -752,7 +764,7 @@ $("#deleteSocialMediaConfirmSingle").on("show.bs.modal", function (event) {
   let id = button.data("id")
   // update modal content
   let modal = $(this);
-  let srcDelete = `http://localhost/stone-store/settings/social-media/${id}`;
+  let srcDelete = `${domain_name}admin/settings/social-media/${id}`;
   modal.find("#deleteSocialMediaButtonSingle").attr("href", srcDelete)
 });
 
@@ -789,7 +801,7 @@ let checkboxes = $("input[data-checkboxes='mygroup']").click(function () {
     let id = button.data("id")
     // update modal content
     let modal = $(this);
-    let srcImg = `http://localhost/stone-store/categories/${id}`;
+    let srcImg = `${domain_name}admin/categories/${id}`;
     modal.find("#deleteButtonSingle").attr("href", srcImg)
     // console.log(modal.find("#img")[0]);
   });

@@ -68,7 +68,11 @@ class Admin extends CI_Controller {
         if ($result) {
             $this->session->set_flashdata('message', 'Berhasil menambahkan data produk');
             $this->session->set_flashdata('alert_color', 'success');
-            redirect('products');
+            redirect('admin/products');
+        } else {
+            $this->session->set_flashdata('message', 'Gagal menambahkan data produk');
+            $this->session->set_flashdata('alert_color', 'danger');
+            redirect('admin/products');
         }
     }
 
@@ -98,7 +102,7 @@ class Admin extends CI_Controller {
             $this->Product_model->delete_product_by_id($id);
             $this->session->set_flashdata('message', 'Berhasil menghapus data produk');
             $this->session->set_flashdata('alert_color', 'success');
-            return redirect('products');
+            return redirect('admin/products');
         }
         $data = [
             "name" => $this->input->post("product_name"),
@@ -113,7 +117,11 @@ class Admin extends CI_Controller {
         if ($result) {
             $this->session->set_flashdata('message', 'Berhasil mengubah data produk');
             $this->session->set_flashdata('alert_color', 'success');
-            redirect('products');
+            redirect('admin/products');
+        } else {
+            $this->session->set_flashdata('message', 'Gagal mengubah data produk');
+            $this->session->set_flashdata('alert_color', 'danger');
+            redirect('admin/products');
         }
     }
 
@@ -171,7 +179,7 @@ class Admin extends CI_Controller {
             ];
             $this->Category_model->addCategory($data, $_FILES);
         }
-        return redirect('categories');
+        return redirect('admin/categories');
     }
     public function handle_category_get()
     {
@@ -198,7 +206,7 @@ class Admin extends CI_Controller {
             $this->Category_model->delete_category_by_id($id);
             $this->session->set_flashdata('message', 'Berhasil menghapus data kategori');
             $this->session->set_flashdata('alert_color', 'success');
-            return redirect('categories');
+            return redirect('admin/categories');
         }
         $data = [
             'name' => trim($this->input->post('category_name')),
@@ -209,7 +217,7 @@ class Admin extends CI_Controller {
         if ($result) {
             $this->session->set_flashdata('message', 'Berhasil mengubah data kategori');
             $this->session->set_flashdata('alert_color', 'success');
-            redirect('categories');
+            redirect('admin/categories');
         }
     }
 
@@ -240,11 +248,11 @@ class Admin extends CI_Controller {
         if ($result) {
             $this->session->set_flashdata('message', 'Berhasil menambahkan data aplikasi');
             $this->session->set_flashdata('alert_color', 'success');
-            redirect('applications');
+            redirect('admin/applications');
         } else {
             $this->session->set_flashdata('message', 'Gagal menambahkan data aplikasi');
             $this->session->set_flashdata('alert_color', 'danger');
-            redirect('applications');
+            redirect('admin/applications');
         }
     }
     public function handle_application_get()
@@ -285,11 +293,11 @@ class Admin extends CI_Controller {
         if ($result) {
             $this->session->set_flashdata('message', 'Berhasil mengubah data aplikasi');
             $this->session->set_flashdata('alert_color', 'success');
-            redirect('applications');
+            redirect('admin/applications');
         } else {
             $this->session->set_flashdata('message', 'Gagal mengubah data aplikasi');
             $this->session->set_flashdata('alert_color', 'danger');
-            redirect('applications');
+            redirect('admin/applications');
         }
     }
 
@@ -322,11 +330,11 @@ class Admin extends CI_Controller {
         if ($result) {
             $this->session->set_flashdata('message', 'Berhasil mengubah data pengaturan');
             $this->session->set_flashdata('alert_color', 'success');
-            redirect('settings');
+            redirect('admin/settings');
         } else {
             $this->session->set_flashdata('message', 'Gagal mengubah data pengaturan');
             $this->session->set_flashdata('alert_color', 'danger');
-            redirect('settings');
+            redirect('admin/settings');
         }
     }
 
@@ -370,11 +378,11 @@ class Admin extends CI_Controller {
         if ($result) {
             $this->session->set_flashdata('message', 'Berhasil mengubah data pengguna');
             $this->session->set_flashdata('alert_color', 'success');
-            redirect('settings/profile');
+            redirect('admin/settings/profile');
         } else {
             $this->session->set_flashdata('message', 'Gagal mengubah data pengguna');
             $this->session->set_flashdata('alert_color', 'danger');
-            redirect('settings/profile');
+            redirect('admin/settings/profile');
         }
     }
     public function handle_setting_profile_get()
@@ -420,11 +428,11 @@ class Admin extends CI_Controller {
             if ($result) {
                 $this->session->set_flashdata('message', 'Berhasil mengubah password');
                 $this->session->set_flashdata('alert_color', 'success');
-                redirect('settings/password');
+                redirect('admin/settings/password');
             } else {
                 $this->session->set_flashdata('message', 'Gagal mengubah password');
                 $this->session->set_flashdata('alert_color', 'danger');
-                redirect('settings/password');
+                redirect('admin/settings/password');
             }
         }
     }
@@ -466,11 +474,11 @@ class Admin extends CI_Controller {
         if ($result) {
             $this->session->set_flashdata('message', 'Berhasil menambah sosial media');
             $this->session->set_flashdata('alert_color', 'success');
-            redirect('settings/social-media');
+            redirect('admin/settings/social-media');
         } else {
             $this->session->set_flashdata('message', 'Gagal menambah sosial media');
             $this->session->set_flashdata('alert_color', 'danger');
-            redirect('settings/social-media');
+            redirect('admin/settings/social-media');
         }
     }
     public function handle_setting_social_media_get()
@@ -491,7 +499,7 @@ class Admin extends CI_Controller {
             $this->Social_Media_model->delete_social_media_by_id($id);
             $this->session->set_flashdata('message', 'Berhasil menghapus sosial media');
             $this->session->set_flashdata('alert_color', 'success');
-            return redirect('settings/social-media');
+            return redirect('admin/settings/social-media');
         }
 
         $data = [
@@ -504,11 +512,11 @@ class Admin extends CI_Controller {
         if ($result) {
             $this->session->set_flashdata('message', 'Berhasil mengedit sosial media');
             $this->session->set_flashdata('alert_color', 'success');
-            redirect('settings/social-media');
+            redirect('admin/settings/social-media');
         } else {
             $this->session->set_flashdata('message', 'Gagal mengedit sosial media');
             $this->session->set_flashdata('alert_color', 'danger');
-            redirect('settings/social-media');
+            redirect('admin/settings/social-media');
         }
     }
 }

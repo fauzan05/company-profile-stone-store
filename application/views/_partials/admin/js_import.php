@@ -1,3 +1,4 @@
+	<input id="domain-url" type="text" hidden value="<?= $domain_url ?>">
 	<!-- General JS Scripts -->
 	<script src="<?= base_url('assets/admin/modules/jquery.min.js') ?>"></script>
 	<script src="<?= base_url('assets/admin/modules/popper.js') ?>"></script>

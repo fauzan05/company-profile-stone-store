@@ -123,7 +123,7 @@
                                 <div class="service-content-inner">
                                     <h5 class="mb-4"><?= $category->name ?></h5>
                                     <p class="mb-4"><?= $category->description ?></p>
-                                    <a href="#" class="btn btn-primary rounded-pill text-white py-2 px-4 mb-2">Read More</a>
+                                    <a href="<?= $domain_url . 'products/' . $category->slug ?>" class="btn btn-primary rounded-pill text-white py-2 px-4 mb-2">Read More</a>
                                 </div>
                             </div>
                         </div>

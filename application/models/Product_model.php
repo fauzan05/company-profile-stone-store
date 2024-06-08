@@ -124,4 +124,13 @@ class Product_model extends CI_Model
             return true;
         }
     }
+
+    public function get_all_products_by_slug($slug)
+    {
+        $this->db->where('slug', $slug);
+        $category = $this->db->get('categories')->result()[0];
+        $this->db->where('category_id', $category->id);
+        $this->db->join('image_products', 'image_products.product_id = ' . $this->_table . '.id');
+        return $this->db->get($this->_table)->result();
+    }
 }

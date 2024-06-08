@@ -56,7 +56,7 @@ $route['translate_uri_dashes'] = FALSE;
 $route['login'] = 'auth/login';
 $route['logout'] = 'auth/logout';
 $route['register'] = 'auth/register';
-$route['contact'] = 'contactperson/contact';
+// ADMIN
 $route['admin/dashboard'] = 'admin';
 $route['admin/products'] = 'admin/product';
 $route['admin/categories'] = 'admin/category';
@@ -71,3 +71,7 @@ $route['admin/settings/social-media'] = 'admin/setting_social_media';
 $route['admin/settings/social-media/(:num)'] = 'admin/edit_social_media/$1';
 $route['admin/upload_product_images'] = 'product/upload_product_images';
 // $route['create_admin'] = 'admin/create_account';
+
+// USER
+$route['products'] = 'app/products';
+$route['products/(:any)'] = 'app/show_all_products/$1';

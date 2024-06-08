@@ -19,7 +19,7 @@
 							if (!empty($social_medias)) :
 								foreach($social_medias as $social_media):
 						?>
-  						<a class="btn-square btn btn-primary text-white rounded-circle mx-1" href=""><i
+  						<a class="btn-square btn btn-primary text-white rounded-circle mx-1" href="<?= $social_media->link ?>"><i
   								class="fab fa-<?= $social_media->type ?>"></i></a>
 						<?php
 						endforeach;
@@ -31,10 +31,10 @@
   			<div class="col-md-6 col-lg-6 col-xl-4">
   				<div class="footer-item d-flex flex-column">
   					<h4 class="mb-4 text-white">Quick Links</h4>
-  					<a href=""><i class="fas fa-angle-right me-2"></i> Home</a>
-  					<a href=""><i class="fas fa-angle-right me-2"></i> Product</a>
-  					<a href=""><i class="fas fa-angle-right me-2"></i> Application</a>
-  					<a href=""><i class="fas fa-angle-right me-2"></i> About Us</a>
+  					<a href="<?= $domain_url ?>"><i class="fas fa-angle-right me-2"></i> Home</a>
+  					<a href="<?= $domain_url . 'products'?>"><i class="fas fa-angle-right me-2"></i> Product</a>
+  					<a href="<?= $domain_url . 'applications'?>"><i class="fas fa-angle-right me-2"></i> Application</a>
+  					<a href="<?= $domain_url . 'about-us'?>"><i class="fas fa-angle-right me-2"></i> About Us</a>
   				</div>
   			</div>
   			<div class="col-md-6 col-lg-6 col-xl-4">
@@ -55,7 +55,7 @@
   	<div class="container">
   		<div class="row g-4 align-items-center">
   			<div class="col-md-6 text-center text-md-start mb-md-0">
-  				<span class="text-white"><a href="#"><i class="fas fa-copyright text-light me-2"></i>  						<?= empty($this->Setting_model->getAllSettings()[0]->company_name) ? 'Untitled' :  $this->Setting_model->getAllSettings()[0]->company_name ?>
+  				<span class="text-white"><a href="#"><i class="fas fa-copyright text-light me-2"></i><?= empty($this->Setting_model->getAllSettings()[0]->company_name) ? 'Untitled' :  $this->Setting_model->getAllSettings()[0]->company_name ?>
 			</a>, All right reserved.</span>
   			</div>
   			<div class="col-md-6 text-center text-md-end text-white">
