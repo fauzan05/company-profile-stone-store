@@ -38,11 +38,11 @@
 									<div class="form-group">
 										<div class="d-block">
 											<label for="password" class="control-label">Password</label>
-											<div class="float-right">
+											<!-- <div class="float-right">
 												<a href="#" class="text-small">
 													Lupa Kata Sandi?
 												</a>
-											</div>
+											</div> -->
 										</div>
 										<input id="password" type="password" class="form-control" name="password"
 											tabindex="2" required>

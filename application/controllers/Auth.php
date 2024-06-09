@@ -9,7 +9,8 @@ class Auth extends CI_Controller {
         parent::__construct();
         $this->load->model('User_model');
         $this->load->model('Setting_model');
-        $this->load->library('form_validation');        
+        $this->load->library('form_validation');
+        $this->load->model('Setting_model');       
     }
 
     public function login()
@@ -52,7 +53,7 @@ class Auth extends CI_Controller {
             'title' => 'Stone Store - Login'
         ];
         $data['error'] = '';
-
+        $data['settings'] = $this->Setting_model->getAllSettings()[0];
 		$this->load->view('auth/login', $data);
     }
 
