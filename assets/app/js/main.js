@@ -58,22 +58,22 @@
     });
 
 
-    // Modal Video
-    $(document).ready(function () {
-        var $videoSrc;
-        $('.btn-play').click(function () {
-            $videoSrc = $(this).data("src");
-        });
-        console.log($videoSrc);
+    // // Modal Video
+    // $(document).ready(function () {
+    //     var $videoSrc;
+    //     $('.btn-play').click(function () {
+    //         $videoSrc = $(this).data("src");
+    //     });
+    //     console.log($videoSrc);
 
-        $('#videoModal').on('shown.bs.modal', function (e) {
-            $("#video").attr('src', $videoSrc + "?autoplay=1&amp;modestbranding=1&amp;showinfo=0");
-        })
+    //     $('#videoModal').on('shown.bs.modal', function (e) {
+    //         $("#video").attr('src', $videoSrc + "?autoplay=1&amp;modestbranding=1&amp;showinfo=0");
+    //     })
 
-        $('#videoModal').on('hide.bs.modal', function (e) {
-            $("#video").attr('src', $videoSrc);
-        })
-    });
+    //     $('#videoModal').on('hide.bs.modal', function (e) {
+    //         $("#video").attr('src', $videoSrc);
+    //     })
+    // });
 
 
     // testimonial carousel
@@ -113,17 +113,26 @@
     
    // Back to top button
    $(window).scroll(function () {
-    if ($(this).scrollTop() > 300) {
+    if ($(this).scrollTop() > 100) {
         $('.back-to-top').fadeIn('slow');
     } else {
         $('.back-to-top').fadeOut('slow');
     }
     });
     $('.back-to-top').click(function () {
-        $('html, body').animate({scrollTop: 0}, 1500, 'easeInOutExpo');
+        $('html, body').animate({scrollTop: 0}, 100, 'easeInOutExpo');
         return false;
     });
 
 
 })(jQuery);
 
+$(document).ready(function() {
+    let name = $('#name')[0];
+    let phone = $('#phone')[0];
+    let message = $('#message')[0];
+    $("#order-now").on("click", function() {
+        link = `https://wa.me/${phone.value}?text=Hai, nama saya ${name.value}, ${message.value}`;
+        window.location.href = link;
+    });
+});

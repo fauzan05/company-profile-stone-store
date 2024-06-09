@@ -27,7 +27,7 @@ class App extends CI_Controller
         ];
         $data['domain_url'] = $this->domain_url;
         $data['meta'] = [
-            'title' => $this->Setting_model->getAllSettings()[0]->company_name,
+            'title' => $this->Setting_model->getAllSettings()[0]->company_name . ' - ' . 'Home',
         ];
         $this->load->view('app/index', $data);
     }
@@ -40,7 +40,7 @@ class App extends CI_Controller
         ];
         $data['domain_url'] = $this->domain_url;
         $data['meta'] = [
-            'title' => $this->Setting_model->getAllSettings()[0]->company_name,
+            'title' => $this->Setting_model->getAllSettings()[0]->company_name . ' - ' . 'Product',
         ];
         $this->load->view('app/product', $data);
     }
@@ -71,5 +71,19 @@ class App extends CI_Controller
         $text = str_replace('-', ' ', $slug);
         // Mengembalikan teks dengan huruf kapital pada awal kata
         return ucwords($text);
+    }
+
+    public function about_us()
+    {
+        $data = [
+            'categories' => $this->Category_model->getAllCategories(null, null),
+            'settings' => $this->Setting_model->getAllSettings()[0],
+            'social_medias' => $this->Social_Media_model->getAllSocialMedias()
+        ]; 
+        $data['meta'] = [
+            'title' => $this->Setting_model->getAllSettings()[0]->company_name . ' - About Us',
+        ];
+        $data['domain_url'] = $this->domain_url;
+        $this->load->view('app/about_us', $data);
     }
 }

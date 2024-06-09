@@ -55,24 +55,6 @@
 										<h4>Semua Produk</h4>
 									</div>
 									<div class="card-body">
-										<div class="float-left">
-											<select class="form-control selectric">
-												<option selected disabled>Urutkan</option>
-												<option>Terbaru</option>
-												<option>Terlama</option>
-											</select>
-										</div>
-										<div class="float-right">
-											<form>
-												<div class="input-group">
-													<input type="text" class="form-control" placeholder="Cari">
-													<div class="input-group-append">
-														<button class="btn btn-primary"><i
-																class="fas fa-search"></i></button>
-													</div>
-												</div>
-											</form>
-										</div>
 										<div class="clearfix mb-3"></div>
 										<div class="table-responsive mb-4">
 											<table class="table table-striped">
@@ -93,7 +75,7 @@
 												?>
 												<tr>
 													<td>
-													<p><?= $key + 1 ?></p>
+														<p><?= $key + 1 ?></p>
 													</td>
 													<td>
 														<p><?= $product->product_name ?></p>
@@ -116,19 +98,23 @@
 														<?= $product->color ?>
 													</td>
 													<td><?= $product->product_updated_at ?></td>
-													<td class="d-flex align-items-center justify-content-between">
-														<i class="fa-solid fa-trash-can text-danger cursor-pointer"
-															data-id="<?= $product->product_id ?>" data-toggle="modal"
-															data-target="#deleteProductConfirmSingle"></i>
-														<i class="mx-3 fa-solid fa-pen-to-square cursor-pointer"
-															data-id="<?= $product->product_id ?>"
-															data-name="<?= $product->product_name ?>"
-															data-category-id="<?= $product->category_id ?>"
-															data-desc="<?= $product->product_desc ?>"
-															data-img="<?= $product->product_image ?>"
-															data-color="<?= $product->color ?>"
-															data-sizes="<?= $product->sizes ?>" data-toggle="modal"
-															data-target="#editProductModal"></i>
+													<td class="">
+														<div class="action-container">
+															<i class="fa-solid fa-trash-can text-danger cursor-pointer"
+																data-id="<?= $product->product_id ?>"
+																data-toggle="modal"
+																data-target="#deleteProductConfirmSingle"></i>
+															<i class="mx-3 fa-solid fa-pen-to-square cursor-pointer"
+																data-id="<?= $product->product_id ?>"
+																data-name="<?= $product->product_name ?>"
+																data-category-id="<?= $product->category_id ?>"
+																data-desc="<?= $product->product_desc ?>"
+																data-img="<?= $product->product_image ?>"
+																data-color="<?= $product->color ?>"
+																data-sizes="<?= $product->sizes ?>" data-toggle="modal"
+																data-target="#editProductModal"></i>
+														</div>
+
 													</td>
 												</tr>
 												<?php
@@ -192,19 +178,18 @@
 				</div>
 				<form action="<?= $domain_url ?>admin/products" method="post" enctype="multipart/form-data">
 					<div class="modal-body d-flex flex-column align-items-start justify-content-center">
-						<div class="row d-flex align-items-center justify-content-around w-100 mb-3">
-							<div class="form-group row mb-4 col-5">
-								<div class="col-sm-12 col-md-7">
-									<div class="image-preview">
-										<label for="image-upload" class="cursor-pointer" id="image-label">Pilih Gambar
-											&nbsp; <i class="fa-solid fa-image"></i></label>
-										<input type="file" name="image-upload" id="image-upload"
-											accept="image/png, image/jpeg, image/jpg" onchange="previewImage()" required/>
-									</div>
+						<div class="row d-flex align-items-center justify-content-center w-100 mb-3">
+							<div
+								class="form-group mb-4 col-lg-5 col-md-7 col-sm-12 d-flex flex-column align-items-center justify-content-center">
+								<div class="image-preview">
+									<label for="image-upload" class="cursor-pointer" id="image-label">Pilih Gambar
+										&nbsp; <i class="fa-solid fa-image"></i></label>
+									<input type="file" name="image-upload" id="image-upload"
+										accept="image/png, image/jpeg, image/jpg" onchange="previewImage()" required />
 								</div>
 							</div>
 							<div id="image-preview"
-								class="col-5 border rounded d-flex flex-column align-items-center justify-content-center">
+								class="col-lg-5 col-md-7 col-sm-12 d-flex flex-column align-items-center justify-content-center">
 								<label class="col-12 col-md-3 col-lg-3 text-center p-0">Pratinjau</label>
 								<p class="text-danger d-none" id="product-img-alert"></p>
 							</div>
@@ -226,7 +211,8 @@
 							</div>
 							<div class="col-5 mb-3">
 								<label for="product_category" class="form-label">Kategori Produk</label>
-								<select class="form-control selectric" name="category_id" id="product_category" required>
+								<select class="form-control selectric" name="category_id" id="product_category"
+									required>
 									<option selected disabled>Pilih kategori</option>
 									<?php if (!empty($categories)) : ?>
 									<?php foreach ($categories as $key => $category) : ?>
@@ -272,23 +258,22 @@
 				</div>
 				<form method="post" enctype="multipart/form-data">
 					<div class="modal-body d-flex flex-column align-items-start justify-content-center">
-						<div class="row d-flex align-items-center justify-content-around w-100 mb-3">
-							<div class="form-group row mb-4 col-5">
-								<div class="col-sm-12 col-md-7">
-									<div class="image-preview">
-										<label for="image-upload-edit" class="cursor-pointer" id="image-label">Pilih Gambar
-											&nbsp; <i class="fa-solid fa-image"></i></label>
-										<input type="file" name="image-upload-edit" id="image-upload-edit"
-											accept="image/png, image/jpeg, image/jpg" onchange="previewImageEdit()" />
-									</div>
+						<div class="row d-flex align-items-center justify-content-center w-100 mb-3">
+							<div
+								class="form-group mb-4 col-lg-5 col-md-7 col-sm-12 d-flex flex-column align-items-center justify-content-center">
+								<div class="image-preview">
+									<label for="image-upload-edit" class="cursor-pointer" id="image-label">Pilih Gambar
+										&nbsp; <i class="fa-solid fa-image"></i></label>
+									<input type="file" name="image-upload-edit" id="image-upload-edit"
+										accept="image/png, image/jpeg, image/jpg" onchange="previewImageEdit()" />
 								</div>
 							</div>
 							<div id="image-preview-edit"
-								class="col-5 border rounded d-flex flex-column align-items-center justify-content-center">
+								class="col-lg-5 col-md-7 col-sm-12 d-flex flex-column align-items-center justify-content-center">
 								<label class="col-12 col-md-3 col-lg-3 text-center p-0">Pratinjau</label>
-								<figure>
+								<div>
 									<img id="img" alt="">
-								</figure>
+								</div>
 							</div>
 						</div>
 						<div class="d-flex flex-row align-items-start justify-content-around row w-100">
@@ -306,9 +291,10 @@
 									value="<?= set_value('product_color') ?>" required>
 								<p class="text-danger d-none" id="product-color-alert"></p>
 							</div>
-							<div class="col-5 mb-3">
+							<div class="col-lg-5 mb-3 col-sm-10 col-md-10">
 								<label for="product_category_edit" class="form-label">Kategori Produk</label>
-								<select class="form-control selectric" name="category_id" id="product_category_edit" required>
+								<select class="form-control selectric" name="category_id" id="product_category_edit"
+									required>
 									<option disabled>Pilih kategori</option>
 									<?php if (!empty($categories)) : ?>
 									<?php foreach ($categories as $key => $category) : ?>
@@ -318,7 +304,7 @@
 									<?php endif; ?>
 								</select>
 							</div>
-							<div class="mb-3 col-5">
+							<div class="mb-3 col-lg-5 col-sm-10 col-md-10">
 								<label for="product_desc_edit" class="form-label">Deskripsi</label>
 								<textarea class="form-control" name="product_desc" id="product_desc_edit"
 									value="<?= set_value('product_desc') ?>" rows="3" required></textarea>
@@ -327,7 +313,8 @@
 							<div class="col-10 mb-3">
 								<label for="ckeditor" class="form-label">Daftar Ukuran</label>
 								<div id="ckeditor-edit"></div>
-								<textarea type="text" id="ckeditor-input-edit" name="sizes" hidden required></textarea>
+								<textarea type="text" id="ckeditor-input-edit" name="sizes" hidden></textarea>
+								<p>Ukuran bisa dikosongkan</p>
 							</div>
 						</div>
 					</div>
@@ -364,7 +351,7 @@
 		</div>
 	</div>
 	<?php $this->load->view('_partials/admin/js_import.php') ?>
-	<script src="<?= base_url('assets/admin/modules/ckeditor5/build/ckeditor.js') ?>"></script>									
+	<script src="<?= base_url('assets/admin/modules/ckeditor5/build/ckeditor.js') ?>"></script>
 	<script>
 		ClassicEditor
 			.create(document.querySelector('#ckeditor'), {

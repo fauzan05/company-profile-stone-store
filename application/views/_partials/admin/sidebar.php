@@ -38,9 +38,9 @@ $current_path = $_SERVER['PATH_INFO'];
 			<li class="dropdown <?= $current_path === '/admin/categories' ? 'active' : '' ?>">
 				<a href="/stone-store/admin/categories" class="nav-link"><i class="fas fa-solid fa-list"></i><span>Categories</span></a>
 			</li>
-			<li class="dropdown <?= $current_path === '/admin/applications' ? 'active' : '' ?>">
+			<!-- <li class="dropdown <?= $current_path === '/admin/applications' ? 'active' : '' ?>">
 				<a href="/stone-store/admin/applications" class="nav-link"><i class="fas fa-brands fa-app-store-ios"></i><span>Applications</span></a>
-			</li>
+			</li> -->
 			<li class="dropdown <?= $current_path === '/admin/settings' || $current_path === '/admin/settings/profile' || $current_path === '/admin/settings/password' || $current_path === '/admin/settings/social-media' ? 'active' : '' ?>">
 				<a href="/stone-store/admin/settings" class="nav-link"><i class="fas fa-solid fa-sliders"></i><span>Settings</span></a>
 			</li>

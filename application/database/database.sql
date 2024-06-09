@@ -119,8 +119,8 @@ drop table product_sizes;
 drop table apps;
 drop database stone_store;
 
-alter table apps
-add google_map_link text null after is_show_logo;
+alter table categories
+add slug varchar(255) not null after image_filename;
 
 desc categories;
 desc products;

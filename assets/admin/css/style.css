@@ -2692,6 +2692,13 @@ body.layout-3 .main-footer {
   background-size: cover;
 }
 
+.action-container{
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  height: 100%;
+}
+
 .product-sizes ul,
 .product-sizes li{
   margin: 0 !important;

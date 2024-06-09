@@ -40,7 +40,7 @@ class Auth extends CI_Controller {
         $password = $this->input->post('password');
         $remember_me = $this->input->post('remember_me');
         if ($this->User_model->login($email, $password, $remember_me)) {
-            redirect('/dashboard', 'location');
+            redirect('admin/dashboard', 'location');
         } else {
 			$this->session->set_flashdata('message_login_error', 'Email atau password salah!');
             $this->load->view('auth/login');

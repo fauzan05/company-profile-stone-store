@@ -17,7 +17,7 @@ $current_page = empty($_SERVER['PATH_INFO']) ? '/' : $_SERVER['PATH_INFO'];
 		<div class="navbar-nav ms-auto py-0">
 			<a href="/stone-store" class="nav-item nav-link <?= $current_page == "/" ? 'active' : '' ?>">Home</a>
 			<a href="/stone-store/products" class="nav-item nav-link <?= $current_page == "/products" ? 'active' : '' ?>">Product</a>
-			<a href="/stone-store/applications" class="nav-item nav-link <?= $current_page == "/applications" ? 'active' : '' ?>">Application</a>
+			<!-- <a href="/stone-store/applications" class="nav-item nav-link <?= $current_page == "/applications" ? 'active' : '' ?>">Application</a> -->
 			<a href="/stone-store/about-us" class="nav-item nav-link <?= $current_page == "/about-us" ? 'active' : '' ?>">About Us</a>
 		</div>
 		<a href="#" class="btn btn-primary rounded-pill text-white py-2 px-4 flex-wrap flex-sm-shrink-0">Lihat

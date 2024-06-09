@@ -598,10 +598,12 @@ function previewImage() {
   imageContainer.innerHTML = "";
   for (let file of imageUploadInput.files) {
     let reader = new FileReader();
-    let figure = document.createElement("figure");
+    let figure = document.createElement("div");
 
     reader.onload = function () {
       let img = document.createElement("img");
+      let label = $("#image-preview label");
+      label.remove();
       img.setAttribute("src", reader.result);
       figure.insertBefore(img, figure.firstChild);
     }

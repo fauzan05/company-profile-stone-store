@@ -62,8 +62,8 @@ $route['admin/products'] = 'admin/product';
 $route['admin/categories'] = 'admin/category';
 $route['admin/categories/(:num)'] = 'admin/edit_category/$1';
 $route['admin/products/(:num)'] = 'admin/edit_product/$1';
-$route['admin/applications'] = 'admin/application';
-$route['admin/applications/(:num)'] = 'admin/edit_application/$1';
+// $route['admin/applications'] = 'admin/application';
+// $route['admin/applications/(:num)'] = 'admin/edit_application/$1';
 $route['admin/settings'] = 'admin/setting';
 $route['admin/settings/profile'] = 'admin/setting_profile';
 $route['admin/settings/password'] = 'admin/setting_password';
@@ -75,3 +75,4 @@ $route['admin/upload_product_images'] = 'product/upload_product_images';
 // USER
 $route['products'] = 'app/products';
 $route['products/(:any)'] = 'app/show_all_products/$1';
+$route['about-us'] = 'app/about_us';

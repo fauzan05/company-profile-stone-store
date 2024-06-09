@@ -55,7 +55,7 @@
                             <h1 class="display-1 text-capitalize text-white mb-4">Spesialis Suplayer Batu Alam Kebumen</h1>
                             <!-- <p class="mb-5 fs-5">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,  -->
                             </p>
-                            <a class="btn btn-primary rounded-pill text-white py-3 px-5" href="#">Pesan Sekarang</a>
+                            <a class="btn btn-primary rounded-pill text-white py-3 px-5" href="#call-now">Pesan Sekarang</a>
                         </div>
                     </div>
                 </div>
@@ -161,7 +161,7 @@
                                 <p class="text-secondary"><i class="fa fa-check text-primary me-2"></i> Amanah</p>
                                 <p class="text-secondary"><i class="fa fa-check text-primary me-2"></i> Bisa Pesan Banyak</p>
                             </div>
-                            <a href="#" class="btn btn-primary rounded-pill text-white py-3 px-5">Discover More</a>
+                            <a href="<?= $domain_url . 'about-us' ?>" class="btn btn-primary rounded-pill text-white py-3 px-5">Discover More</a>
                         </div>
                     </div>
                 </div>
@@ -170,7 +170,7 @@
         <!-- About End -->
 
         <!-- Book Appointment Start -->
-        <div class="container-fluid appointment py-5">
+        <div id="call-now" class="container-fluid appointment py-5">
             <div class="container py-5">
                 <div class="row g-5 align-items-center">
                     <div class="col-lg-6 wow fadeInLeft" data-wow-delay="0.2">
@@ -186,20 +186,15 @@
                             <h1 class="display-5 mb-4">Pesan Sekarang!</h1>
                             <form>
                                 <div class="row gy-3 gx-4">
-                                    <div class="col-xl-6">
-                                        <input type="text" class="form-control py-3 border-primary bg-transparent" placeholder="Nama">
-                                    </div>
-                                    <div class="col-xl-6">
-                                        <input type="email" class="form-control py-3 border-primary bg-transparent" placeholder="Email">
-                                    </div>
-                                    <div class="col-xl-6">
-                                        <input type="phone" class="form-control py-3 border-primary bg-transparent" placeholder="No. HP">
+                                    <div class="col-xl-12">
+                                        <input id="name" type="text" class="form-control py-3 border-primary bg-transparent" placeholder="Nama" required>
                                     </div>
                                     <div class="col-12">
-                                        <textarea class="form-control border-primary bg-transparent" name="text" id="area-text" cols="30" rows="5" placeholder="Tulis Pesan"></textarea>
+                                        <textarea id="message" class="form-control border-primary bg-transparent" name="text" id="area-text" cols="30" rows="5" placeholder="Tulis Pesan" ></textarea>
                                     </div>
+                                    <input id="phone" type="text" value="<?= $settings->phone_number ?>" hidden>
                                     <div class="col-12">
-                                        <button type="button" class="btn btn-primary text-white w-100 py-3 px-5">Hubungi Sekarang &nbsp;<i class="fas fa-brands fa-whatsapp"></i></button>
+                                        <button id="order-now" type="button" class="btn btn-primary text-white w-100 py-3 px-5">Hubungi Sekarang &nbsp;<i class="fas fa-brands fa-whatsapp"></i></button>
                                     </div>
                                 </div>
                             </form>

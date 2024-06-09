@@ -54,7 +54,7 @@
 								</div>
 							</div>
 							<div class="col-md-8">
-								<form id="setting-form" action="/stone-store/settings/social-media" method="post">
+								<form id="setting-form" action="/stone-store/admin/settings/social-media" method="post">
 									<div class="card" id="settings-card">
 										<div class="card-header">
 											<h4>Pengaturan Sosial Media</h4>
@@ -79,7 +79,7 @@
 														<option selected disabled>Pilih</option>
 														<option value="instagram">Instagram</option>
 														<option value="facebook">Facebook</option>
-														<option value="twitter">Twitter</option>
+														<option value="x-twitter">Twitter</option>
 														<option value="tiktok">TikTok</option>
 														<option value="linkedin">LinkedIn</option>
 													</select>
@@ -113,7 +113,8 @@
 														<td><?= $social_media->type ?></td>
 														<td><a href="<?= $social_media->link ?>"
 																class="btn btn-secondary">Link</a></td>
-														<td class="d-flex align-items-center justify-content-start">
+														<td>
+															<div class="action-container">
 															<i class="fa-solid fa-trash-can text-danger cursor-pointer"
 																data-id="<?= $social_media->id ?>" data-toggle="modal"
 																data-target="#deleteSocialMediaConfirmSingle"></i>
@@ -123,6 +124,8 @@
 																data-link="<?= $social_media->link ?>"
 																data-target="#editSocialMediaModal"
 																data-toggle="modal"></i>
+															</div>
+															
 														</td>
 													</tr>
 													<?php endforeach; ?>

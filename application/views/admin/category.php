@@ -55,24 +55,6 @@
 										<h4>Semua Kategori</h4>
 									</div>
 									<div class="card-body">
-										<div class="float-left">
-											<select class="form-control selectric">
-												<option selected disabled>Urutkan</option>
-												<option>Terbaru</option>
-												<option>Terlama</option>
-											</select>
-										</div>
-										<div class="float-right">
-											<form>
-												<div class="input-group">
-													<input type="text" class="form-control" placeholder="Cari">
-													<div class="input-group-append">
-														<button class="btn btn-primary"><i
-																class="fas fa-search"></i></button>
-													</div>
-												</div>
-											</form>
-										</div>
 										<div class="clearfix mb-3"></div>
 										<div class="table-responsive">
 											<table class="table table-striped">
@@ -101,15 +83,17 @@
 																width="80" data-toggle="title" title="">
 													</td>
 													<td><?= $category->created_at ?></td>
-													<td class="d-flex align-items-center justify-content-around">
+													<td>
+														<div class="action-container">
 														<i class="fa-solid fa-trash-can text-danger cursor-pointer" data-id="<?= $category->id ?>" data-toggle="modal"
 														data-target="#deleteConfirmSingle"></i>
-														<i class="fa-solid fa-pen-to-square cursor-pointer"
+														<i class="fa-solid fa-pen-to-square cursor-pointer mx-3"
 															data-id="<?= $category->id ?>"
 															data-name="<?= $category->name ?>"
 															data-desc="<?= $category->description ?>"
 															data-img="<?= $category->image_filename ?>"
 															data-toggle="modal" data-target="#editCategoryModal"></i>
+														</div>
 													</td>
 												</tr>
 												<?php endforeach; ?>
