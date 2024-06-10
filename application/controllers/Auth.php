@@ -43,8 +43,9 @@ class Auth extends CI_Controller {
         if ($this->User_model->login($email, $password, $remember_me)) {
             redirect('admin/dashboard', 'location');
         } else {
+            $data['settings'] = $this->Setting_model->getAllSettings()[0];
 			$this->session->set_flashdata('message_login_error', 'Email atau password salah!');
-            $this->load->view('auth/login');
+            $this->load->view('auth/login', $data);
         }
     }
 
@@ -52,8 +53,8 @@ class Auth extends CI_Controller {
         $data['meta'] = [
             'title' => 'Stone Store - Login'
         ];
-        $data['error'] = '';
         $data['settings'] = $this->Setting_model->getAllSettings()[0];
+        $data['error'] = '';
 		$this->load->view('auth/login', $data);
     }
 

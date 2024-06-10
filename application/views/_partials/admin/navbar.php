@@ -143,7 +143,7 @@
 					<i class="fas fa-cog"></i> Settings
 				</a>
 				<div class="dropdown-divider"></div>
-				<a href="<?= $domain_url ?>admin/logout" class="dropdown-item has-icon text-danger">
+				<a href="<?= $domain_url ?>logout" class="dropdown-item has-icon text-danger">
 					<i class="fas fa-sign-out-alt"></i> Logout
 				</a>
 			</div>

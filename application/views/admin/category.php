@@ -165,7 +165,7 @@
 											&nbsp; <i class="fa-solid fa-image"></i></label>
 										<input type="file" name="image-upload" id="image-upload"
 											accept="image/png, image/jpeg, image/jpg" onchange="previewImage()"
-											required />
+											 />
 									</div>
 								</div>
 							</div>

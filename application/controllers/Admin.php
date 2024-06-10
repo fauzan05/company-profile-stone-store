@@ -161,25 +161,21 @@ class Admin extends CI_Controller {
 
     public function handle_category_post()
     {
-        $data['meta'] = [
-        'title' => 'Stone Store - Admin Categories',
+        $data = [
+            'name' => trim($this->input->post('category_name')),
+            'description' => trim($this->input->post('category_description'))
         ];
         // $data['error'] = '';
-        $rules = $this->Category_model->categoryRules();
-        $this->form_validation->set_rules($rules);
-
-        if ($this->form_validation->run() == false) {
-            $this->session->set_flashdata('add_category_error', 'Data tidak valid');
-            return $this->load->view('admin/category', $data);
+        $result = $this->Category_model->addCategory($data, $_FILES);
+        if ($result === true) {
+            $this->session->set_flashdata('message', 'Berhasil menambahkan data kategori');
+            $this->session->set_flashdata('alert_color', 'success');
+            redirect('admin/categories');
+        } else {
+            $this->session->set_flashdata('message', $result);
+            $this->session->set_flashdata('alert_color', 'danger');
+            redirect('admin/categories');
         }
-        if ($_FILES) {
-            $data = [
-                'name' => trim($this->input->post('category_name')),
-                'description' => trim($this->input->post('category_description'))
-            ];
-            $this->Category_model->addCategory($data, $_FILES);
-        }
-        return redirect('admin/categories');
     }
     public function handle_category_get()
     {
@@ -214,9 +210,13 @@ class Admin extends CI_Controller {
             'updated_at' => $this->now
         ];
         $result = $this->Category_model->editCategory($data, $id);
-        if ($result) {
+        if ($result === true) {
             $this->session->set_flashdata('message', 'Berhasil mengubah data kategori');
             $this->session->set_flashdata('alert_color', 'success');
+            redirect('admin/categories');
+        } else {
+            $this->session->set_flashdata('message', $result);
+            $this->session->set_flashdata('alert_color', 'danger');
             redirect('admin/categories');
         }
     }

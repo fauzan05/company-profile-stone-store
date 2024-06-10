@@ -38,25 +38,28 @@ class Category_model extends CI_Model
     }
 
     public function addCategory($data)
-    {        
-        $this->load->library('upload', $this->set_upload_options());
+    {
+        if ($_FILES['image-upload']['error'] == 0) {
+            $this->load->library('upload', $this->set_upload_options());
+            if (!$this->upload->do_upload('image-upload')) {
+                return $this->upload->display_errors();
+            } else {
+                $image_data = $this->upload->data();
+                // die(var_dump($data));
+                $original_filename = $image_data['file_name'];
+                $file_ext = $image_data['file_ext'];
+                $hashed_filename = hash('sha256', $original_filename . time() . $file_ext);
+                // die(var_dump($hashed_filename));
+                // rename the file
+                rename($image_data['full_path'], $image_data['file_path'] . $hashed_filename . $file_ext);
+                $data['image_filename'] = $hashed_filename . $file_ext;
+                $data['slug'] = $this->createSlug($data['name']);
+                $this->db->insert($this->_table, $data);
 
-        if (!$this->upload->do_upload('image-upload')) {
-            return $this->upload->display_errors();
+                return true;
+            }
         } else {
-            $image_data = $this->upload->data();
-            // die(var_dump($data));
-            $original_filename = $image_data['file_name'];
-            $file_ext = $image_data['file_ext'];
-            $hashed_filename = hash('sha256', $original_filename . time() . $file_ext);
-            // die(var_dump($hashed_filename));
-            // rename the file
-            rename($image_data['full_path'], $image_data['file_path'] . $hashed_filename . $file_ext);
-            $data['image_filename'] = $hashed_filename . $file_ext;
-            $data['slug'] = $this->createSlug($data['name']);
-            $this->db->insert($this->_table, $data);
-            
-            return true;
+            return "Gambar harus di upload!";
         }
     }
 
@@ -79,7 +82,7 @@ class Category_model extends CI_Model
                 $data['slug'] = $this->createSlug($data['name']);
                 $this->db->where('id', $id);
                 $this->db->update($this->_table, $data);
-                
+
                 return true;
             }
         } else {
@@ -109,19 +112,20 @@ class Category_model extends CI_Model
         return $this->db->delete($this->_table, ['id' => $id]);
     }
 
-    function createSlug($string) {
+    function createSlug($string)
+    {
         // Convert to lowercase
         $string = strtolower($string);
-    
+
         // Remove non-alphanumeric characters (excluding hyphens and spaces)
         $string = preg_replace('/[^a-z0-9\s-]/', '', $string);
-    
+
         // Replace multiple spaces or hyphens with a single hyphen
         $string = preg_replace('/[\s-]+/', '-', $string);
-    
+
         // Trim hyphens from the beginning and end of the string
         $string = trim($string, '-');
-    
+
         return $string;
     }
 
@@ -132,5 +136,4 @@ class Category_model extends CI_Model
         $category = $this->db->get($this->_table)->result()[0];
         return $category->image_filename;
     }
-
 }

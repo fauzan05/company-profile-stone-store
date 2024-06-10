@@ -635,7 +635,7 @@ $("#deleteConfirmSingle").on("show.bs.modal", function (event) {
   let id = button.data("id")
   // update modal content
   let modal = $(this);
-  let srcImg = `${domain_name}categories/${id}`;
+  let srcImg = `${domain_name}admin/categories/${id}`;
   modal.find("#deleteButtonSingle").attr("href", srcImg)
   // console.log(modal.find("#img")[0]);
 });
@@ -692,9 +692,6 @@ $("#editProductModal").on("show.bs.modal", function (event) {
     console.error('MyEditor is not initialized');
   }
 });
-
-
-
 
 // passing data delete single product modal
 $("#deleteProductConfirmSingle").on("show.bs.modal", function (event) {
@@ -760,7 +757,7 @@ $("#editSocialMediaModal").on("show.bs.modal", function (event) {
   modal.find("form").attr("action", action)
 });
 
-// passing data edit social media modal
+// passing data delete social media modal
 $("#deleteSocialMediaConfirmSingle").on("show.bs.modal", function (event) {
   let button = $(event.relatedTarget);
   let id = button.data("id")
