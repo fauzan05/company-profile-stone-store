@@ -107,6 +107,15 @@
 												</div>
 											</div>
 											<div class="form-group row align-items-center">
+												<label for="site-map"
+													class="form-control-label col-sm-3 text-md-right">Google Maps Link</label>
+												<div class="col-sm-6 col-md-9">
+													<input type="text" name="google_map_link" class="form-control"
+														id="site-map"
+														value="<?= !empty($settings->google_map_link) ? $settings->google_map_link : '' ?>">
+												</div>
+											</div>
+											<div class="form-group row align-items-center">
 												<label for="site-phone"
 													class="form-control-label col-sm-3 text-md-right">Nomor
 													Telepon</label>

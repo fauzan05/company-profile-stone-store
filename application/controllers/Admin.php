@@ -65,12 +65,12 @@ class Admin extends CI_Controller {
         ];
         // die(var_dump($data));
         $result = $this->Product_model->addProduct($data);
-        if ($result) {
+        if ($result === true) {
             $this->session->set_flashdata('message', 'Berhasil menambahkan data produk');
             $this->session->set_flashdata('alert_color', 'success');
             redirect('admin/products');
         } else {
-            $this->session->set_flashdata('message', 'Gagal menambahkan data produk');
+            $this->session->set_flashdata('message', $result);
             $this->session->set_flashdata('alert_color', 'danger');
             redirect('admin/products');
         }
@@ -324,6 +324,7 @@ class Admin extends CI_Controller {
             'address' => $this->input->post('address'),
             'email' => $this->input->post('email'),
             'phone_number' => $this->input->post('phone_number'),
+            'google_map_link' => $this->input->post('google_map_link'),
             'is_show_logo' => (boolean)$this->input->post('show_logo') ? true : false
         ];
         $result = $this->Setting_model->editSettings($data);

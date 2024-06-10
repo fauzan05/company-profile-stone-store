@@ -82,7 +82,7 @@ class Product_model extends CI_Model
         //upload an image options
         $config = array();
         $config['upload_path'] = FCPATH . 'assets/img/products/';
-        $config['allowed_types'] = 'jpg|png|jpeg';
+        $config['allowed_types'] = 'jpg|png|jpeg|JPEG|PNG';
         $config['max_size'] = 10000;
         $config['overwrite'] = FALSE;
 
@@ -128,8 +128,11 @@ class Product_model extends CI_Model
     public function get_all_products_by_slug($slug)
     {
         $this->db->where('slug', $slug);
-        $category = $this->db->get('categories')->result()[0];
-        $this->db->where('category_id', $category->id);
+        $category = $this->db->get('categories')->result();
+        if (empty($category)) {
+            return false;
+        }
+        $this->db->where('category_id', $category[0]->id);
         $this->db->join('image_products', 'image_products.product_id = ' . $this->_table . '.id');
         return $this->db->get($this->_table)->result();
     }

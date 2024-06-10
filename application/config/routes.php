@@ -51,7 +51,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 
 $route['default_controller'] = 'app';
-$route['404_override'] = '';
+$route['404_override'] = 'app/not_found';
 $route['translate_uri_dashes'] = FALSE;
 $route['login'] = 'auth/login';
 $route['logout'] = 'auth/logout';

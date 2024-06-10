@@ -3,11 +3,11 @@
 <?php $this->load->view('_partials/app/header.php') ?>
 <body>
     <!-- Spinner Start -->
-        <!-- <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
-        </div> -->
+        </div>
         <!-- Spinner End -->
 
 
@@ -16,7 +16,7 @@
             <div class="row gx-0 align-items-center" style="height: 45px;">
                 <div class="col-lg-8 text-center text-lg-start mb-lg-0">
                     <div class="d-flex flex-wrap">
-                        <a href="#" class="text-light me-4"><i class="fas fa-map-marker-alt text-light me-2"></i>Find A Location</a>
+                        <a href="<?= $settings->google_map_link ?>" class="text-light me-4"><i class="fas fa-map-marker-alt text-light me-2"></i>Google Maps</a>
                         <a href="#" class="text-light me-4"><i class="fas fa-phone-alt text-light me-2"></i><?= $settings->phone_number ?></a>
                         <a href="#" class="text-light me-0"><i class="fas fa-envelope text-light me-2"></i><?= $settings->email ?></a>
                     </div>
@@ -133,7 +133,7 @@
                     endif;
                     ?>
                     <div class="col-12 text-center wow fadeInUp" >
-                        <a class="btn btn-primary rounded-pill text-white py-3 px-5" href="/stone-store/products">Products More</a>
+                        <a class="btn btn-primary rounded-pill text-white py-3 px-5" href="<?= $domain_url ?>products">Products More</a>
                     </div>
                 </div>
             </div>

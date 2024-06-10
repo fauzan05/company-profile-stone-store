@@ -40,9 +40,10 @@
   			<div class="col-md-6 col-lg-6 col-xl-4">
   				<div class="footer-item d-flex flex-column">
   					<h4 class="mb-4 text-white">Contact Info</h4>
-  					<a href=""><i class="fa fa-map-marker-alt me-2"></i><?= empty($settings->address) ? 'No address' :  $settings->address ?></a>
+					<a href="<?= $settings->google_map_link ?>" class="me-4"><i class="fas fa-solid fa-map me-2"></i>Google Maps</a>
+  					<a href="#"><i class="fa fa-map-marker-alt me-2"></i><?= empty($settings->address) ? 'No address' :  $settings->address ?></a>
   					<a href="mailto:<?= $settings->email ?>"><i class="fas fa-envelope me-2"></i><?= empty($settings->email) ? 'No email' :  $settings->email ?></a>
-  					<a href=""><i class="fas fa-phone me-2"></i><?= empty($settings->phone_number) ? 'No phone' :  $settings->phone_number ?></a>
+  					<a href="#"><i class="fas fa-phone me-2"></i><?= empty($settings->phone_number) ? 'No phone' :  $settings->phone_number ?></a>
   				</div>
   			</div>
   		</div>

@@ -31,6 +31,19 @@ class App extends CI_Controller
         ];
         $this->load->view('app/index', $data);
     }
+
+    public function not_found()
+    {
+        $data = [
+            'settings' => $this->Setting_model->getAllSettings()[0],
+            'social_medias' => $this->Social_Media_model->getAllSocialMedias()
+        ];
+        $data['domain_url'] = $this->domain_url;
+        $data['meta'] = [
+            'title' => $this->Setting_model->getAllSettings()[0]->company_name . ' - ' . '404 Not Found',
+        ];
+        $this->load->view('app/error_404', $data);
+    }
     public function products()
     {
         $data = [
@@ -52,8 +65,15 @@ class App extends CI_Controller
             'settings' => $this->Setting_model->getAllSettings()[0],
             'social_medias' => $this->Social_Media_model->getAllSocialMedias()
         ];
-        $data['domain_url'] = $this->domain_url;
         $result = $this->Product_model->get_all_products_by_slug($slug);
+        if ($result === false) {
+            return redirect('404_override');
+        } else {
+            $data['products'] = $result;
+        }
+        
+        $data['domain_url'] = $this->domain_url;
+        
         //    echo '<pre>' . var_export($result, true) . '</pre>';
         //     return;
         $data['meta'] = [
@@ -61,7 +81,6 @@ class App extends CI_Controller
         ];
         $data['image_filename'] = $this->Category_model->get_image_categories($slug);
         $data['unslug'] = $this->unslug($slug);
-        $data['products'] = $result;
         $this->load->view('app/slug', $data);
     }
 
@@ -79,7 +98,7 @@ class App extends CI_Controller
             'categories' => $this->Category_model->getAllCategories(null, null),
             'settings' => $this->Setting_model->getAllSettings()[0],
             'social_medias' => $this->Social_Media_model->getAllSocialMedias()
-        ]; 
+        ];
         $data['meta'] = [
             'title' => $this->Setting_model->getAllSettings()[0]->company_name . ' - About Us',
         ];
