@@ -1,6 +1,13 @@
+RewriteOptions inherit
 RewriteEngine on
 RewriteCond $1 !^(index\.php|resources|robots\.txt)$
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php/$1 [L,QSA]
 Options -Indexes
+
+# Pastikan ini adalah domain utama
+RewriteCond %{HTTP_HOST} ^www\.pancausahastone\.com$ [NC]
+
+# Redirect dari www.example.com/login ke www.admin.example.com/login
+RewriteRule ^login$ https://www.admin.pancausahastone.com/login [R=301,L]
