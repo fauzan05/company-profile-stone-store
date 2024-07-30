@@ -63,17 +63,8 @@ class Admin extends CI_Controller {
             'description' => $this->input->post('product_desc'),
             'color' => $this->input->post('product_color')
         ];
-        // die(var_dump($data));
         $result = $this->Product_model->addProduct($data);
-        if ($result === true) {
-            $this->session->set_flashdata('message', 'Berhasil menambahkan data produk');
-            $this->session->set_flashdata('alert_color', 'success');
-            redirect('admin/products');
-        } else {
-            $this->session->set_flashdata('message', $result);
-            $this->session->set_flashdata('alert_color', 'danger');
-            redirect('admin/products');
-        }
+        echo $result;
     }
 
     public function handle_add_product_get()

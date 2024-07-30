@@ -114,7 +114,6 @@
 																data-sizes="<?= $product->sizes ?>" data-toggle="modal"
 																data-target="#editProductModal"></i>
 														</div>
-
 													</td>
 												</tr>
 												<?php
@@ -176,7 +175,8 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<form action="<?= $domain_url ?>admin/products" method="post" enctype="multipart/form-data">
+					<div class="alert alert-danger d-none" id="error-add" role="alert">
+					</div>
 					<div class="modal-body d-flex flex-column align-items-start justify-content-center">
 						<div class="row d-flex align-items-center justify-content-center w-100 mb-3">
 							<div
@@ -184,65 +184,64 @@
 								<div class="image-preview">
 									<label for="image-upload" class="cursor-pointer" id="image-label">Pilih Gambar
 										&nbsp; <i class="fa-solid fa-image"></i></label>
-									<input type="file" name="image-upload" id="image-upload"
-										accept="image/png, image/jpeg, image/jpg" onchange="previewImage()" required />
+									<input type="file" name="image-upload" id="image-upload" class="product-required"
+										accept="image/png, image/jpeg, image/jpg" onchange="previewImage()" required="" />
 								</div>
 							</div>
 							<div id="image-preview"
 								class="col-lg-5 col-md-7 col-sm-12 d-flex flex-column align-items-center justify-content-center">
 								<label class="col-12 col-md-3 col-lg-3 text-center p-0">Pratinjau</label>
-								<p class="text-danger d-none" id="product-img-alert"></p>
+								<p class="text-danger d-none product-required-alert">Pilih salah satu gambar</p>
 							</div>
 						</div>
 						<div class="d-flex flex-row align-items-start justify-content-around row w-100">
 							<div class="col-5 mb-3">
 								<label for="product_name" class="form-label">Nama Produk</label>
-								<input class="form-control" name="product_name" type="text" placeholder="Nama Produk"
+								<input class="form-control product-required" name="product_name" type="text" placeholder="Nama Produk"
 									aria-label="default input example" id="product_name"
-									value="<?= set_value('product_name') ?>" required>
-								<p class="text-danger d-none" id="product-name-alert"></p>
+									value="<?= set_value('product_name') ?>" required="">
+								<p class="text-danger d-none product-required-alert">Kolom harus diisi</p>
 							</div>
 							<div class="col-5 mb-3">
 								<label for="product_color" class="form-label">Warna Produk</label>
-								<input class="form-control" name="product_color" type="text" placeholder="Warna Produk"
+								<input class="form-control product-required" name="product_color" type="text" placeholder="Warna Produk"
 									aria-label="default input example" id="product_color"
-									value="<?= set_value('product_color') ?>" required>
-								<p class="text-danger d-none" id="product-color-alert"></p>
+									value="<?= set_value('product_color') ?>" required="">
+								<p class="text-danger d-none product-required-alert">Kolom harus diisi</p>
 							</div>
 							<div class="col-5 mb-3">
 								<label for="product_category" class="form-label">Kategori Produk</label>
-								<select class="form-control selectric" name="category_id" id="product_category"
-									required>
-									<option selected disabled>Pilih kategori</option>
+								<select class="form-control selectric product-required" name="category_id" id="product_category"
+									required="">
+									<option selected disabled value="">Pilih kategori</option>
 									<?php if (!empty($categories)) : ?>
 									<?php foreach ($categories as $key => $category) : ?>
 									<option value="<?= $category->id ?>"><?= $category->name ?></option>
 									<?php endforeach; ?>
 									<?php endif; ?>
 								</select>
-								<p class="text-danger d-none" id="product-category-alert"></p>
+								<p class="text-danger d-none product-required-alert">Kolom harus diisi</p>
 							</div>
 							<div class="mb-3 col-5">
 								<label for="product_desc" class="form-label">Deskripsi</label>
-								<textarea class="form-control" name="product_desc" id="product_desc"
-									value="<?= set_value('product_desc') ?>" rows="3" required></textarea>
-								<p class="text-danger d-none" id="product-desc-alert"></p>
+								<textarea class="form-control product-required" name="product_desc" id="product_desc"
+									value="<?= set_value('product_desc') ?>" rows="3" required=""></textarea>
+								<p class="text-danger d-none product-required-alert">Kolom harus diisi</p>
 							</div>
 							<div class="col-10 mb-3">
 								<label for="ckeditor" class="form-label">Daftar Ukuran</label>
 								<div id="ckeditor"></div>
-								<textarea type="text" id="ckeditor-input" name="sizes" hidden></textarea>
+								<textarea type="text" id="ckeditor-input" name="sizes" hidden id="sizes"></textarea>
 								<p>Ukuran bisa dikosongkan</p>
 							</div>
 						</div>
 					</div>
 					<div class="modal-footer bg-whitesmoke br">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Keluar</button>
-						<button type="submit" class="btn btn-primary" id="add-button">
+						<button type="button" class="btn btn-primary" id="add-product-button">
 							Buat Produk
 						</button>
 					</div>
-				</form>
 			</div>
 		</div>
 	</div>
@@ -353,6 +352,13 @@
 	<?php $this->load->view('_partials/admin/js_import.php') ?>
 	<script src="<?= base_url('assets/admin/modules/ckeditor5/build/ckeditor.js') ?>"></script>
 	<script>
+	// digunakan agar modal selalu aktif tanpa harus ditekan terlebih dahulu
+	// window.onload = function() {
+	// 	var myModal = new bootstrap.Modal(document.getElementById('addProductModal'));
+	// 	myModal.show();
+	// };
+	$(function(){
+		let domainUrl = '<?= $domain_url ?>';
 		ClassicEditor
 			.create(document.querySelector('#ckeditor'), {
 
@@ -367,6 +373,70 @@
 				console.error(error);
 			});
 
+		function check_required(p = '') {
+			$('.' + p).each((i, obj) => {
+				console.log($(obj).val())
+			});
+		}
+
+		$('#add-product-button').click(function () {
+			// Membuat objek FormData
+			let formData = new FormData();
+			
+			// Menambahkan data lain ke FormData
+			formData.append('product_name', $('#product_name').val());
+			formData.append('category_id', $('#product_category').val());
+			formData.append('sizes', $('#ckeditor-input').val());
+			formData.append('product_color', $('#product_color').val());
+			formData.append('product_desc', $('#product_desc').val());
+			
+			// Menambahkan file gambar ke FormData
+			let imageFile = $('#image-upload')[0].files[0]; // Gantilah 'product_image' dengan ID input file Anda
+			if (imageFile) {
+				formData.append('image-upload', imageFile);
+			}
+
+			// Validasi input
+			let products_inputs = $('.product-required');
+			let products_inputs_alert = $('.product-required-alert');
+
+			let isValid = true;
+			products_inputs.each((i, obj) => {
+				if ($(obj).val() == null || $(obj).val() === "") {
+					$(products_inputs_alert[i]).removeClass("d-none");
+					isValid = false;
+				} else {
+					$(products_inputs_alert[i]).addClass("d-none");
+				}
+			});
+
+			if (isValid) {
+				$.ajax({
+					url: domainUrl + 'admin/products', // Update this to the correct PHP script URL
+					type: 'POST',
+					data: formData,
+					processData: false, // Prevent jQuery from automatically transforming the data into a query string
+					contentType: false, // Prevent jQuery from setting the Content-Type header
+					dataType: 'json',
+					success: function (response) {
+						let result = Boolean(response);
+						if (result) {
+							$('#error-add').addClass('d-none');
+							window.location.reload(true);
+						}
+					},
+					error: function (jqXHR, textStatus, errorThrown) {
+						// Handle error response
+						$('#error-add').removeClass('d-none');
+						$('#error-add').html(errorThrown);
+					}
+				});
+			}
+});
+
+
+
+	});	
 	</script>
 </body>
 

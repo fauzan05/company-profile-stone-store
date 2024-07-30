@@ -11,5 +11,5 @@ RUN apt-get install nano
 #     a2ensite stone-store &&\
 #     service apache2 restart
 RUN a2enmod rewrite
-EXPOSE 80
+EXPOSE 81
 CMD ["apache2-foreground"]

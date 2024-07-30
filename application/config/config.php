@@ -533,4 +533,4 @@ $config['rewrite_short_tags'] = FALSE;
 */
 $config['proxy_ips'] = '';
 
-$config['domain_url'] = 'http://localhost/stone-store/';
+$config['domain_url'] = 'http://localhost:81/stone-store/';

@@ -12,7 +12,7 @@ services:
       # - ./stone-store.conf:/etc/apache2/sites-available/stone-store.conf
     ports:
     # host:docker
-      - 80:80    
+      - 81:80    
   db:
     container_name: db-stone-store
     # image: mysql:5.7
@@ -30,7 +30,7 @@ services:
     container_name: phpmyadmin-stone-store
     image: phpmyadmin/phpmyadmin
     ports:
-        - '8080:80'
+        - '8001:80'
     restart: always
     environment:
         PMA_HOST: db

@@ -54,28 +54,48 @@ class Product_model extends CI_Model
     public function addProduct($data)
     {
         $this->load->library('upload', $this->set_upload_options());
-
+        
+        // Start transaction
+        $this->db->trans_start();
+    
         if (!$this->upload->do_upload('image-upload')) {
+            // Rollback transaction
+            $this->db->trans_rollback();
             return $this->upload->display_errors();
         } else {
             $this->db->insert($this->_table, $data);
             $product_id = $this->db->insert_id();
-
+    
             $image_data = $this->upload->data();
-            // die(var_dump($data));
             $original_filename = $image_data['file_name'];
             $file_ext = $image_data['file_ext'];
             $hashed_filename = hash('sha256', $original_filename . time() . $file_ext);
-            // die(var_dump($hashed_filename));
-            // rename the file
-            rename($image_data['full_path'], $image_data['file_path'] . $hashed_filename . $file_ext);
+    
+            // Rename the file
+            if (!rename($image_data['full_path'], $image_data['file_path'] . $hashed_filename . $file_ext)) {
+                // Rollback transaction if rename fails
+                $this->db->trans_rollback();
+                return 'Error renaming the file';
+            }
+    
             $image_product['filename'] = $hashed_filename . $file_ext;
             $image_product['product_id'] = $product_id;
-
+    
             $this->db->insert('image_products', $image_product);
+    
+            // Complete the transaction
+            $this->db->trans_complete();
+    
+            // Check if the transaction was successful
+            if ($this->db->trans_status() === FALSE) {
+                // Generate an error... or use the log_message() function to log your error
+                return 'An error occurred while adding the product';
+            }
+    
             return true;
         }
     }
+    
 
     private function set_upload_options()
     {
