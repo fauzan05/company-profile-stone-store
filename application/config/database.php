@@ -75,9 +75,9 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'host.docker.internal',
+	'hostname' => 'localhost',
 	'username' => 'root',
-	'password' => 'root',
+	'password' => '',
 	'database' => 'stone_store',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
